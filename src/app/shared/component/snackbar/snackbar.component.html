@@ -1,0 +1,7 @@
+<div class="d-flex align-items-center">
+  <mat-icon>{{data?.icon}}</mat-icon>
+  <span>{{data?.message}}</span>
+  @if(data?.icon === 'report_problem'){
+  <button mat-icon-button (click)="onClose()"><mat-icon>highlight_off</mat-icon></button>
+  }
+</div>

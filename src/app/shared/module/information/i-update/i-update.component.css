@@ -1,0 +1,44 @@
+/* Style for MatCard component */
+mat-card {
+  width: 500px;
+  height:auto;
+  margin: auto;
+  align-items: center;
+  text-align: center;
+  display: block;
+  margin-top: 6em;
+  background-color: #ECE7F6;
+}
+
+mat-card-title {
+  font-size: 25px;
+}
+
+/* Style for MatCard content */
+mat-card-content {
+  display: block;
+  padding: 16px;
+  margin: 20px auto;
+  width: 450px;
+}
+
+/* Styles for MatCard header and actions */
+mat-card-header, mat-card-actions {
+  display: block;
+}
+
+/* Style for MatCard actions */
+mat-card-actions {
+  padding-bottom: 16px;
+}
+
+/* Font size for MatGridTile */
+mat-grid-tile {
+  font-size: 20px;
+}
+
+/* Style for a container */
+.container {
+  margin: auto;
+}
+

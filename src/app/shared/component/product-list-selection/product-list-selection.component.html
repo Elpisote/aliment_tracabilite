@@ -1,0 +1,57 @@
+
+<div class="d-flex justify-content-between">
+  <!-- Affiche le nombre d'éléments sélectionnés si la variable showSelect est vraie -->
+  @if(showSelect) {
+  <p class="mt-3 selection">{{ getSelectedItemCount() }} éléments sélectionnés</p>
+  <!-- Instructions pour l'utilisateur -->
+  <p class="mt-3 instruction" style="display: flex; align-items: center;">
+    <!-- Ajout du style d'alignement vertical -->
+    <mat-icon fontIcon="warning"></mat-icon>
+    Veuillez cliquer sur valider avant de cliquer sur suivant
+  </p>
+  }
+</div>
+
+
+
+<!-- Tableau affichant les données provenant de la source de données dataSource -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-3">
+  <!-- Conteneur pour les colonnes de sélection -->
+  @if (showSelect) {
+  <!-- Définition de la colonne de sélection -->
+  <ng-container matColumnDef="select">
+    <!-- En-tête de la colonne de sélection -->
+    <mat-header-cell *matHeaderCellDef [style.background-color]="color" style="width:30px;"></mat-header-cell>
+
+    <!-- Cellule de données pour la colonne de sélection -->
+    <mat-cell *matCellDef="let row">
+      <!-- Case à cocher pour sélectionner ou désélectionner la ligne -->
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null;"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+  }
+
+  <!-- Boucle sur les colonnes à afficher -->
+  <ng-container *ngFor="let column of columnsToDisplay; let i = index">
+    <!-- Définition de la colonne actuelle -->
+    <ng-container [matColumnDef]="column">
+      <!-- En-tête de la colonne -->
+      <mat-header-cell *matHeaderCellDef [style.background-color]="color" [style.width.px]="getColumnWidth(column)">
+        <!-- Libellé de la colonne -->
+        {{ columnHeaders[i+1] }}
+      </mat-header-cell>
+      <!-- Cellule de données pour la colonne -->
+      <mat-cell *matCellDef="let element" class="text-center">
+        <!-- Affichage de la valeur de la colonne au format spécifié -->
+        {{ formatColumnValue(element, column) }}
+      </mat-cell>
+    </ng-container>
+  </ng-container>
+  <!-- Ligne d'en-tête pour toutes les colonnes -->
+  <mat-header-row *matHeaderRowDef="allColumns"></mat-header-row>
+  <!-- Ligne de données pour chaque élément de la source de données -->
+  <mat-row *matRowDef="let row; columns: allColumns;"></mat-row>
+</table>

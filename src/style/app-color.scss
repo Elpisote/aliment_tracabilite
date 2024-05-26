@@ -1,0 +1,20 @@
+@import 'config-material-color.scss';
+
+:root {
+  --primary-lighter: #{$primary-lighter};
+  --primary-medium: #{$primary-medium};
+  --primary-darker: #{$primary-darker};
+  --primary-opacity: #{$primary-opacity};
+  --primary: #{$primary};
+
+  --accent-lighter: #{$accent-lighter};
+  --accent-medium: #{$accent-medium};
+  --accent-darker: #{$accent-darker};
+  --accent: #{$accent};
+
+  --warn-lighter: #{$warn-lighter};
+  --warn-medium: #{$warn-medium};
+  --warn-darker: #{$warn-darker};
+  --warn-opacity: #{$warn-opacity};
+  --warn: #{$warn};
+}

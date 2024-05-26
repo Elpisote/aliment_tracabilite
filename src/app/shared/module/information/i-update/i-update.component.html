@@ -1,0 +1,46 @@
+<!--composant permettant de mettre à jour les informations personnelles de l'utilisateur-->
+<!-- Container for the card -->
+<div class="container">
+  <!-- Material Card with background styling -->
+  <mat-card>
+    <!-- Card header with title and subtitle -->
+    <mat-card-header>
+      <mat-card-title>Mes informations</mat-card-title>
+    </mat-card-header>
+    <!-- Card content with form -->
+    <mat-card-content>
+      <!-- Form with formGroup and ngSubmit event -->
+      <form [formGroup]="editFormGroup" (ngSubmit)="onUpdateUser()">
+        <!-- Grid list with 2 columns and spacing -->
+        <mat-grid-list cols="2" gutterSize="9px" rowHeight="35px">
+          <!-- Labels and input fields for user information -->
+          <mat-grid-tile>Nom</mat-grid-tile>
+          <mat-grid-tile>
+            <input type="text" formControlName="lastname" class="form-control" upperCaseInputDirective />
+          </mat-grid-tile>
+          <mat-grid-tile>Prénom</mat-grid-tile>
+          <mat-grid-tile>
+            <input type="text" formControlName="firstname" class="form-control" capitalizeFirstLetter />
+          </mat-grid-tile>
+          <mat-grid-tile>Pseudo</mat-grid-tile>
+          <mat-grid-tile>
+            <input type="text" formControlName="userName" class="form-control" capitalizeFirstLetter />
+          </mat-grid-tile>
+          <mat-grid-tile>Email</mat-grid-tile>
+          <mat-grid-tile>
+            <input type="text" formControlName="email" class="form-control" />
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card-content>
+    <!-- Card actions with close and update buttons -->
+    <mat-card-actions class="d-flex justify-content-evenly">
+      <button mat-raised-button color="accent" class="modifier" (click)="onUpdateUser()">
+        VALIDER
+      </button>
+      <button mat-raised-button color="primary" class="fermer" (click)="onClose()">
+        FERMER
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

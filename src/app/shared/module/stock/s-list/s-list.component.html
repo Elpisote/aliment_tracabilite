@@ -1,0 +1,22 @@
+<!--
+  Composant Angular utilisé pour afficher une liste de stocks.
+  - name: Nom de la liste à afficher.
+  - routeName: Nom de la route pour naviguer vers cette liste.
+  - entityName: Nom de l'entité associée à cette liste.
+  - namecolumns: Noms des colonnes à afficher dans l'en-tête du tableau.
+  - columns: Propriétés des éléments de la liste à afficher dans les colonnes du tableau.
+  - items: Liste des éléments à afficher dans le tableau.
+  - formControlConfigs : Configuration des contrôles de formulaire
+  - entity : Entité à éditer
+  - selectedNameDisabled : Nom de l'élément à désactiver dans la liste déroulante
+  - isStock: Indique si les éléments de la liste sont des stocks.
+-->
+<app-list [name]="nameType"
+          [entityName]="entityName"
+          [namecolumns]="['Code', 'Nom produit', 'Date ouverture', 'Temps restant','Statut']"
+          [columns]="['id', 'product.name', 'openingDate', 'countdown', this.getStatutValue]"   
+          [formControlConfigs]="config"
+          [entity]="entity"
+          [selectNameDisable]="'un statut '"
+          [isStock]="true">
+</app-list>

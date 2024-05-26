@@ -1,0 +1,36 @@
+/* Styles pour la barre d'outils (mat-toolbar) */
+mat-toolbar {
+  height: 100%;
+  font-size: 30px; 
+}
+
+/* Styles pour le titre */
+.titre {
+  margin-left: 40px;
+  flex: auto;
+  letter-spacing: 2px;
+}
+
+/* Styles pour le nom */
+.nom {
+  margin-right: 40px;
+  flex: auto;
+  letter-spacing: 2px;
+}
+
+/* Styles pour le compte */
+.account {
+  margin-right: 30px;
+}
+
+/* Styles pour les icônes mat-icon */
+mat-icon {
+  transform: scale(1.7);
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Styles pour les images */
+.image {
+  margin-right: 8px;
+}

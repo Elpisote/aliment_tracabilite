@@ -1,0 +1,12 @@
+<!--
+  Élément HTML utilisé pour afficher un spinner de chargement avec un message.
+  Le spinner est centré horizontalement et verticalement dans son conteneur.
+-->
+
+<div class="loading-spinner d-flex flex-column align-items-center justify-content-center">
+  <!-- Spinner de chargement Angular Material -->
+  <mat-spinner color="primary" [diameter]="150" [strokeWidth]="6"></mat-spinner>
+
+  <!-- Message de chargement -->
+  <div class="mt-4 fs-6 fw-bold fst-italic">Chargement...</div>
+</div>

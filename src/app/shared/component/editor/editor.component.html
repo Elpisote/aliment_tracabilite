@@ -1,0 +1,56 @@
+<!-- Rendu conditionnel du spinner de chargement -->
+<!-- Si la variable `loading` est évaluée à true, le spinner de chargement est affiché -->
+<!-- Sinon, le reste du contenu est rendu -->
+@if(loading) {
+<app-spinner></app-spinner>
+}
+@else {
+<!-- Formulaire utilisant Angular Reactive Forms avec Bootstrap styling -->
+<div class="mt-5 col-md-6 offset-md-3">
+  <form [formGroup]="formGroup">
+
+    <!-- Boucle sur les configurations des contrôles de formulaire -->
+    <div *ngFor="let config of formControlConfigs" class="mb-3">
+
+      <!-- Libellé du champ de formulaire -->
+      <label class="form-label">{{ config.label }}</label>
+
+      <!-- Sélection du rendu du champ en fonction de son type -->
+      @if (config.type === 'select') {
+      <!-- Champ de sélection défini par les options -->
+      <select [formControlName]="config.controlName" class="form-select">
+        <option [ngValue]="null" disabled class="text-center">---- Choisissez {{selectNameDisable}} ----</option>
+        <option *ngFor="let option of config.options" [ngValue]="option.id">{{ option.label }}</option>
+      </select>
+      }
+      @else {
+      <!-- Utilisation d'un modèle pour définir le champ d'entrée -->
+      <input [formControlName]="config.controlName" class="form-control" [type]="config.type" [readonly]="isReadonly(config.controlName)" min="1"
+             [value]="config.type === 'number' ? formatColumnValue(config.controlName) : formatColumnValue(config.controlName)"
+             [ngStyle]="{ 'background-color': isReadonly(config.controlName) ? '#f0f0f0' : '' }" />
+      }
+
+      <!-- Message indiquant que le champ est en lecture seule -->
+      @if (formGroup.controls[config.controlName].touched && isReadonly(config.controlName)) {
+      <small class="text-primary">
+        Cette entrée est en lecture seule.
+      </small>
+      }
+
+      <!-- Message d'erreur affiché en cas de validation du champ -->
+      @if (formGroup.controls[config.controlName].errors && formGroup.controls[config.controlName].touched) {
+      <small class="text-danger">
+        {{ getMessageErreur(config.label, config.controlName) }}
+      </small>
+      }
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-around mt-5 mb-5">
+    <!-- Bouton "BACK" pour fermer la boîte de dialogue avec la valeur true -->
+    <button mat-raised-button id="back-button" [mat-dialog-close]="true">Fermer</button>
+    <!-- Bouton "OK" pour ajouter ou acutalise après la fermeture la boîte de dialogue avec la valeur false -->
+    <button mat-raised-button id="ok-button" [mat-dialog-close]="false" (click)="onSubmit()">{{ isAdd ? 'Ajouter' : 'Actualiser' }}</button>
+  </div>
+</div>
+}

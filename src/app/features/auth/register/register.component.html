@@ -1,0 +1,13 @@
+<!-- Composant personnalisé 'app-auth-card' utilisé pour la mise en page d'un formulaire d'enregistrement -->
+<app-auth-card [formGroup]="registerFormGroup"
+               [title]="title"
+               [buttonName]="buttonName"
+               [showBackButton]="true"
+               (submitForm)="onSubmit()">
+  <!-- Composant personnalisé 'app-info' utilisé pour la saisie des informations personnelles -->
+  <app-info [formData]="registerFormGroup"></app-info>
+
+  <!-- Composant personnalisé 'app-password' utilisé pour la saisie du mot de passe -->
+  <app-password [formData]="registerFormGroup"></app-password>
+
+</app-auth-card>

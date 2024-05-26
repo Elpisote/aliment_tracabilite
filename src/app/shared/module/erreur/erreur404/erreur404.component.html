@@ -1,0 +1,13 @@
+<!--
+  Le composant `app-error` est utilisé pour afficher une page d'erreur avec un titre, un message personnalisé,
+  et une image spécifique en cas d'accès interdit.
+  [title] => titre de l'erreur'
+  [messge] => message de la page d'erreur
+  [imagePath] => chemin d'accès à l'image
+-->
+
+<app-error [title]="'Page introuvable'"
+           [message]="'Veuillez vérifier votre URL'"
+           [imagePath]="'../../../../../assets/image/404.jpg'">
+</app-error>
+

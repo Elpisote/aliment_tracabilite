@@ -1,0 +1,43 @@
+<!-- Barre d'outils (mat-toolbar) avec des éléments et actions associées -->
+
+<mat-toolbar color="primary">
+  <!-- Bouton pour basculer la barre de navigation latérale -->
+  <div (click)="sideNavToggle()">
+    <button mat-icon-button>
+      <mat-icon fontIcon="menu"></mat-icon>
+    </button>
+  </div>
+
+  <!-- Titre du restaurant -->
+  <span class="titre">Restaurant : Ratatouille</span>
+
+  <!-- Message de bienvenue avec le nom de l'utilisateur courant -->
+  <span class="nom">Bonjour {{ username$ | async }}</span>
+
+
+  <!-- Bouton pour ouvrir le menu des informations utilisateur -->
+  <button mat-icon-button class="account" [matMenuTriggerFor]="menu" matTooltip="Mes informations">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <!-- Bouton de déconnexion -->
+  <button mat-icon-button class="exit" (click)="logout($event)" matTooltip="Déconnexion">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- Menu déroulant des informations utilisateur -->
+<mat-menu #menu="matMenu">
+  <!-- Éléments du menu avec des actions associées -->
+  <!-- Option pour afficher les informations utilisateur -->
+  <button mat-menu-item (click)="myInformation()">
+    <img class="image" alt="info" src="../../../../assets/image/info.png" height=25>
+    <span>Mes informations</span>
+  </button>
+
+  <!-- Option pour changer le mot de passe -->
+  <button mat-menu-item (click)="myPassword()">
+    <img class="image" alt="info" src="../../../../assets/image/change_password.png" height=25>
+    <span>Mot de passe</span>
+  </button>
+</mat-menu>

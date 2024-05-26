@@ -1,0 +1,27 @@
+/* Styles pour la carte matérielle (mat-card) */
+mat-card {
+  max-width: 600px; /* Largeur maximale de la carte */
+  height: auto; /* Hauteur automatique */
+  margin: 3.5em auto; /* Marge extérieure, centrée horizontalement */
+  align-items: center; /* Alignement des éléments au centre */
+  text-align: center; /* Alignement du texte au centre */
+  display: block; /* Affichage en tant que bloc */
+  background-color: var(--primary-lighter);
+}
+
+/* Styles pour le titre (title) */
+mat-card-title {
+  font-size: 35px; /* Taille de police de 35 pixels */
+  padding-top: 20px; /* padding de 16px en haut*/
+}
+
+/* Styles pour les images (img) */
+img {
+  transform: scale(0.45);
+  margin-left: auto; /* Marge à gauche automatique, centrée horizontalement */
+  margin-right: auto; /* Marge à droite automatique, centrée horizontalement */
+  margin-top: -25px;
+  margin-bottom: -20px;
+}
+
+

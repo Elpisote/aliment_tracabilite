@@ -1,0 +1,66 @@
+/* Styles pour le composant app-header */
+
+app-header {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 4rem;
+  z-index: 2;
+}
+
+/* Styles pour la section principale (main) */
+
+main {
+  position: absolute;
+  top: 4rem;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Styles pour la barre de navigation latérale (app-aside-nav) */
+app-side-nav {
+  position: absolute;
+  left: 0rem;
+  width: 60px;
+  height: calc(1000vh - 4rem);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  background-color: var(--primary-opacity);
+  border-top: solid 1px white;
+  overflow-x: hidden;
+  white-space: nowrap;
+  transition: width 250ms ease-in;
+}
+
+/* Styles pour ouvrir la barre de navigation latérale */
+.app-side-nav-open {
+  width: 200px;
+}
+
+/* Styles pour la zone d'affichage principale (display-area) */
+.display-area {
+  position: absolute;
+  left: 60px;
+  width: calc(100% - 60px);
+  transition: left 250ms ease-in, width 250ms ease-in;
+}
+
+/* Styles pour réduire la zone d'affichage principale lorsque la barre de navigation est ouverte */
+.display-area-shrink {
+  left: 200px;
+  width: calc(100% - 200px);
+}
+
+/* Styles pour les images */
+img {
+  position: absolute;
+  left: 500px;
+  top: 200px;
+}
+
+/* Styles pour l'élément avec la classe "fin" */
+.fin {
+  position: absolute;
+  left: 1000px;
+  top: 500px;
+}

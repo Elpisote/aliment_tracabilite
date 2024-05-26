@@ -1,0 +1,45 @@
+/*
+  Styles CSS pour la mise en forme d'un composant mat-card et ses éléments associés.
+*/
+
+mat-card {
+  width: 500px;
+  height: auto;
+  margin: auto;
+  align-items: center;
+  text-align: center;
+  display: block;
+  margin-top: 6em;  
+  background-color: #ECE7F6;
+}
+
+mat-card-title {
+  font-size: 25px;
+}
+
+mat-card-content {
+  display: block;
+  padding: 16px; 
+  margin: 20px auto;
+  width: 450px;
+}
+
+mat-card-header, mat-card-actions {
+  display: block;
+}
+
+mat-card-actions{
+  padding-bottom: 16px;
+}
+
+mat-grid-tile {
+  font-size: 20px;
+}
+
+mat-grid-list {
+  width: 425px;
+}
+
+.container {
+  margin: auto;
+}

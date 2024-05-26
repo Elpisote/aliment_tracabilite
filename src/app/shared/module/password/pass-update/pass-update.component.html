@@ -1,0 +1,48 @@
+<!--Composant permettant de changer de mot de passe lorsque l'on est connecté'-->
+<!-- Conteneur principal -->
+<div class="container">
+
+  <!-- Carte matérielle avec arrière-plan et texte stylisés -->
+  <mat-card class="bg-info text-dark bg-opacity-25">
+
+    <!-- En-tête de la carte avec titre principal et sous-titre -->
+    <mat-card-header>
+      <mat-card-title class="h1">Mot de passe</mat-card-title>
+      <mat-card-subtitle class="text-secondary h3 mb-4">Modification</mat-card-subtitle>
+    </mat-card-header>
+
+    <!-- Contenu de la carte -->
+    <mat-card-content>
+
+      <!-- Formulaire avec liaison bidirectionnelle à l'objet 'passwordFormGroup' -->
+      <form [formGroup]="passwordFormGroup" (ngSubmit)="onSubmit()">
+
+        <!-- Paragraphe pour indiquer le champ 'Nouveau mot de passe' -->
+        <p class="mb-1">Nouveau mot de passe</p>
+
+        <!-- Composant personnalisé 'app-password' avec liaison à 'passwordFormGroup' -->
+        <app-password [formData]="passwordFormGroup"></app-password>
+
+        <!-- Actions de la carte, boutons pour fermer et valider -->
+        <mat-card-actions>
+          <button mat-button
+                  color="primary"
+                  class="fermer"
+                  (click)="onClose()">
+            FERMER
+          </button>
+          <button mat-button
+                  color="primary"
+                  class="modifier">
+            VALIDER
+          </button>
+        </mat-card-actions>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+

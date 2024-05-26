@@ -1,0 +1,29 @@
+/* Styles CSS pour les éléments img, p, .bienvenue et .texte */
+
+/* Style pour les images */
+img {
+  position: absolute;
+  left: 500px;
+  top: 200px;
+}
+
+/* Style pour les paragraphes */
+p {
+  width: 300px;
+}
+
+/* Style pour la classe .bienvenue */
+.bienvenue {
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+  font-size: 55px;
+}
+
+/* Style pour la classe .texte */
+.texte {
+  position: absolute;
+  left: 1000px;
+  top: 500px;
+  text-align: center;
+  line-height: 1.5em;
+}

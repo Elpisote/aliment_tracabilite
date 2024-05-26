@@ -1,0 +1,115 @@
+/**
+ * Styles pour la carte matérielle (mat-card) utilisée dans le composant.
+ */
+mat-card {
+  width: 600px;
+  margin: auto;
+  align-items: center;
+  text-align: center;
+  display: block;
+  margin-top: 6em;
+}
+
+/**
+ * Styles pour l'en-tête et les actions de la carte matérielle.
+ */
+mat-card-header, mat-card-actions {
+  display: block;
+}
+
+/**
+ * Styles pour les actions de la carte matérielle.
+ */
+mat-card-actions {
+  margin-top: 15px;
+}
+
+/**
+ * Styles pour les boutons de l'ensemble de développement matériel (Material Design).
+ */
+.mdc-button {
+  padding: 0 8px 0 8px;
+  margin: 0 20px 0 20px;
+}
+
+/**
+ * Styles pour le contenu de la carte matérielle.
+ */
+mat-card-content {
+  display: block;
+  padding: 16px;
+  margin: auto;
+  margin-bottom: 12px;
+  margin-top: 20px;
+  width: 600px;
+  height: auto;
+}
+
+/**
+ * Styles pour les tuiles de grille matérielle.
+ */
+mat-grid-tile {
+  font-size: 20px;
+}
+
+/**
+ * Styles pour le conteneur.
+ */
+.container {
+  margin: auto;
+}
+
+/**
+ * Styles pour le bouton de modification.
+ */
+.modifier {
+  margin-left: 15px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/**
+ * Styles pour le bouton de fermeture.
+ */
+.fermer {
+  margin-right: 15px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/**
+ * Styles pour les messages d'erreur matériels.
+ */
+mat-error {
+  position: absolute;
+  font-size: 10px;
+  margin-top: -5px;
+  margin-left: 15px;
+}
+
+/**
+ * Styles pour les indications matérielles.
+ */
+mat-hint {
+  position: relative;
+  text-align: left;
+  font-size: 11px;
+}
+
+/**
+ * Styles pour les icônes matérielles.
+ */
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+/**
+ * Styles pour les paragraphes.
+ */
+p {
+  text-align: left;
+  font-size: 18px;
+  margin-left: 40px;
+  margin-bottom: -20px;
+}

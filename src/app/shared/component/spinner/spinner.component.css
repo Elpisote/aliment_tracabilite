@@ -1,0 +1,15 @@
+/* Styles pour le composant de chargement */
+.loading-spinner {
+  /* Positionne le spinner au centre de l'écran */
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 280px;
+  z-index: 99; /* Place le spinner au-dessus des autres éléments */
+  background-color: var(--primary-lighter); /* Couleur de fond du spinner */
+  text-align: center; /* Centre le contenu du spinner horizontalement */
+  padding: 20px; /* Ajoute de l'espace intérieur au spinner */
+  border: 1px solid var(--primary-medium); /* Ajoute une bordure autour du spinner */
+}

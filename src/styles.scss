@@ -1,0 +1,185 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'style/app-color.scss';
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons.min.css';
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+/*Material*/
+/*Mat form field*/
+.mat-mdc-text-field-wrapper {
+  height: 45px !important;
+}
+
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: 22px !important;
+}
+
+.mat-mdc-form-field-flex { 
+  margin-top : 5px
+}
+
+.mat-mdc-form-field-infix {
+  min-height: 10px !important;  
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder {
+  position: absolute;
+  top: -4px;
+}
+
+
+/** Mat grid**/
+.mat-grid-tile.mat-grid-tile .mat-grid-tile-content {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 0;
+  margin: 0
+}
+
+
+/* mat-confirm-dialog */
+.confirm-dialog-container .mat-dialog-container {
+  border-radius: .25em .25em .4em .4em;
+  padding: 0px;
+}
+
+.confirm-dialog-container .content-container {
+  margin: 5px 5px 15px 5px;
+  display: flex;
+}
+
+.confirm-dialog-container #close-icon {
+  margin-left: auto;
+  order: 2;
+  font-weight: bolder;
+}
+
+.confirm-dialog-container #close-icon:hover {
+  cursor: pointer;
+}
+
+.confirm-dialog-container #no-button {
+  height: 50px;
+  width: 50%;
+  background-color: var(--accent);
+  border-radius: 0px;
+}
+
+.confirm-dialog-container #yes-button {
+  height: 50px;
+  width: 50%;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 0px;
+}
+
+.confirm-dialog-container span.content-span {
+  padding: 35px 16px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.confirm-dialog-container .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--primary-lighter);
+}
+
+
+/** Mat dialog pour la pop up formulaire*/
+.form-dialog-container .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--primary-lighter);
+}
+
+.form-dialog-container #back-button {
+  height: 40px;
+  width: 40%;
+  background-color: var(--accent);
+  border-radius: 10px;
+}
+
+
+.form-dialog-container #ok-button {
+  height: 40px;
+  width: 40%;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 10px;
+}
+
+
+/* notification */
+.mat-mdc-snack-bar-container { 
+  --mdc-snackbar-supporting-text-weight: 500;
+  width: auto;
+  max-width: 1000px;
+}
+
+.mat-mdc-snack-bar-container.notif-success {
+  --mdc-snackbar-supporting-text-color: var(--primary-darker);
+
+  .mdc-snackbar__surface {
+    background: linear-gradient(to right, var(--primary-lighter),var(--primary-medium),var(--primary));
+  }
+
+  .mat-icon {
+    color: var(--primary-darker);
+    font-weight: 600;
+  }
+}
+
+.mat-mdc-snack-bar-container.notif-danger {
+  --mdc-snackbar-supporting-text-color: var(--warn-darker);
+
+  .mdc-snackbar__surface {
+    background: linear-gradient(to right, var(--warn-lighter),var(--warn-medium),var(--warn));
+  }
+
+  .mat-icon {
+    color: var(--warn-darker);
+    font-weight: 600;
+  }
+}
+
+.mat-mdc-snack-bar-container.notif-info {
+  --mdc-snackbar-supporting-text-color: var(--accent-darker);
+
+  .mdc-snackbar__surface {
+    background: linear-gradient(to right, #fff2bf, var(--accent-lighter),var(--accent-medium));
+  }
+
+  .mat-icon {
+    color: var(--accent-darker);
+    font-weight: 600;
+  }
+}
+  /* Pagination changement de la couleur de fond*/
+  .ngx-pagination .current {
+    background-color: var(--primary) !important;
+    opacity: 1;
+  }
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

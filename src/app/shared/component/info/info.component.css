@@ -1,0 +1,21 @@
+/* Styles CSS */
+
+/* Style des champs de formulaire mat-form-field */
+mat-form-field {
+  width: 90%;
+  margin: auto;
+}
+
+/* Style des erreurs mat-error */
+mat-error {
+  position: absolute;
+  margin-top: -20px;
+  margin-left: 15px;
+  font-size: 10px;
+}
+
+/* Style pour les champs de saisie input */
+input {
+  position: absolute;
+  top: 8px;
+}

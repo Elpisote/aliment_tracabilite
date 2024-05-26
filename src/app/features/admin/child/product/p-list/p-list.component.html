@@ -1,0 +1,24 @@
+<!--
+  Le composant `app-list` est utilisé pour afficher une liste d'entités (dans ce cas, des produits).
+  Il prend plusieurs paramètres en entrée pour personnaliser son comportement.
+
+  @Input() name: string - Le nom de l'affichage, utilisé comme titre de la page.
+  @Input() entityName: string - Le nom de l'entité associée à la liste (ex: "Utilisateur", "Produit", etc.).
+  @Input() namecolumns: string[] - Les noms des colonnes à afficher dans l'en-tête de la liste.
+  @Input() columns: string[] - Les propriétés de l'entité à afficher dans chaque colonne.
+  @Input() items: any[] - Les éléments (entités) à afficher dans la liste.
+  @Input() formControlConfigs: FormControlConfig[] - Les configurations pour les champs du formulaire.
+  @Input() entity: any - L'entité à afficher dans le formulaire.
+  @Input() selectedNameDisable: string - le nom à afficher dans le menu déroulant
+-->
+
+<app-list [name]="nameType"
+          [entityName]="entityName"
+          [namecolumns]="['Code', 'Nom', 'Catégorie', 'Description', 'DLC (en jour)', 'Nb en stock']"
+          [columns]="['id', 'name', 'category.name', 'description', 'durationConservation', 'nbProductStock']"     
+          [formControlConfigs]="config"
+          [entity]="entity"
+          [selectNameDisable]="'une catégorie '">
+</app-list>
+
+

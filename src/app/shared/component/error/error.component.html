@@ -1,0 +1,21 @@
+<!-- composant generique pour afficher les erreurs -->
+<!-- Conteneur principal avec marges -->
+<div class="container my-5">
+  <!-- Panneau par défaut avec centrage du texte et remplissage en haut -->
+  <div class="panel panel-default text-center pt-5">
+    <!-- En-tête du panneau avec titre en rouge -->
+    <div class="panel-heading">
+      <h1 class="text-danger">{{ title }}</h1>
+    </div>
+    <!-- Corps du panneau avec une image, un message et un bouton -->
+    <div class="panel-body">
+      <!-- Image avec classe image, utilisant le chemin imagePath et une hauteur fixe de 300 pixels -->
+      <img class="image mt-4" alt="logo" [src]="imagePath" height=300>
+      <!-- Titre du message avec une classe my-4 pour un espacement en bas -->
+      <h3 class="my-4">{{ message }}</h3>
+      <!-- Bouton de fermeture avec une classe btn btn-primary et déclenche closeClicked lors du clic -->
+      <button type="button" class="btn btn-primary" (click)="closeClicked()">Fermer</button>
+    </div>
+  </div>
+</div>
+

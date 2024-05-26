@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Définition des couleurs selon la palette material
+$primary: mat.define-palette(mat.$deep-purple-palette);
+$accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$warn: mat.define-palette(mat.$red-palette);
+$theme: mat.define-light-theme(( color: ( primary: $primary, accent: $accent, warn: $warn ), typography: mat.define-typography-config(), density: 0, ));
+
+@include mat.all-component-themes($theme);
+
+// Définissez des nuances ou des variables supplémentaires ici
+$primary-lighter: mat.get-theme-color($theme, primary, 50);
+$primary-medium: mat.get-theme-color($theme, primary, 200);
+$primary-darker: mat.get-theme-color($theme, primary, 800);
+$primary-opacity: mat.get-theme-color($theme, primary, 0.92);
+$primary: mat.get-theme-color($theme, primary, default);
+
+$accent-lighter: mat.get-theme-color($theme, accent, A100);
+$accent-medium: mat.get-theme-color($theme, accent, A200);
+$accent-darker: mat.get-theme-color($theme, accent, A700);
+$accent: mat.get-theme-color($theme, accent);
+
+$warn-lighter: mat.get-theme-color($theme, warn, 50);
+$warn-medium: mat.get-theme-color($theme, warn, 200);
+$warn-darker: mat.get-theme-color($theme, warn, 800);
+$warn-opacity: mat.get-theme-color($theme, warn, 0.82);
+$warn: mat.get-theme-color($theme, warn, default);
+

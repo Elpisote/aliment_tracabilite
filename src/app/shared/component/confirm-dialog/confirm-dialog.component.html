@@ -1,0 +1,17 @@
+<!-- Conteneur de contenu -->
+<div class="content-container">
+
+  <!-- Icône de fermeture de la boîte de dialogue -->
+  <mat-icon id="close-icon" (click)="closeDialog()">close</mat-icon>
+
+  <!-- Message affiché dans la boîte de dialogue -->
+  <span class="content-span full-width">{{data.message}}</span>
+</div>
+
+<div>
+  <!-- Bouton "YES" pour fermer la boîte de dialogue avec la valeur true -->
+  <button mat-button id="yes-button" [mat-dialog-close]="true">YES</button>
+
+  <!-- Bouton "NO" pour fermer la boîte de dialogue avec la valeur false -->
+  <button mat-button id="no-button" [mat-dialog-close]="false">NO</button>
+</div>

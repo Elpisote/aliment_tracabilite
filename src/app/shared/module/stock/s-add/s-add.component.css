@@ -1,0 +1,42 @@
+select {
+  width: 260px;
+  height: 40px;
+}
+
+.container {
+  width: 100%;
+}
+
+/*crée une bordure d'encadrement pour les filtres */
+.filter {
+  border-style: inset;
+  border-width: 2px 2px 2px 2px;
+}
+
+mat-paginator {
+  height: 30px;
+}
+
+.page {
+  width: 21cm; /* Largeur de la page A4 */
+  height: 29.7cm; /* Hauteur de la page A4 */
+  margin: 0 auto; /* Centre la page horizontalement sur la feuille */
+
+  display: flex;
+  flex-wrap: wrap; /* Permet aux étiquettes de passer à la ligne */
+  justify-content: space-between; /* Espace uniformément les étiquettes horizontalement */
+}
+
+.label-container {
+  width: 70mm; /* Calcul de la largeur de chaque étiquette */
+  height: 37mm; /* Hauteur de chaque étiquette */
+  margin-bottom: 1mm; /* Espace entre les lignes d'étiquettes */
+}
+
+.label {
+  width: 100%;
+  height: 100%;
+  border: 1px solid black; /* Bordure pour délimiter chaque étiquette */
+  padding: 0.5cm; /* Marge intérieure pour aligner le contenu */
+  text-align: center;
+}

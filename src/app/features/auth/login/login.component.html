@@ -1,0 +1,49 @@
+<!-- Composant personnalisé 'app-auth-card' utilisé pour la mise en page d'un formulaire d'authentification -->
+<app-auth-card [formGroup]="loginFormGroup"
+               [title]="title"
+               [buttonName]="buttonName"
+               [showBackButton]="false"
+               (submitForm)="onSubmit()">
+  <!-- Zone de saisie de l'email -->  
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input formControlName="email"
+            matInput
+            placeholder="Entrer votre email" />
+  </mat-form-field>
+  <!-- Affichage d'un message d'erreur en cas de validation échouée -->
+  @if (loginFormGroup.controls['email'].errors && loginFormGroup.controls['email'].touched) {
+  <mat-error>
+    {{errorService.getErrorMessage('Email', loginFormGroup.controls['email'].errors)}}
+  </mat-error>
+  }
+  
+  <!-- Zone de saisie du mot de passe --> 
+  <mat-form-field class="password-input" appearance="outline">
+    <mat-label>Mot de passe</mat-label>
+    <input formControlName="password"
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Mot de passe" />
+    <!-- Bouton pour masquer ou afficher le mot de passe -->
+    <button mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide Password'"
+            [attr.aria-pressed]="hide">
+      <mat-icon>
+        {{hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+    </button>
+  </mat-form-field>
+  <!-- Affichage d'un message d'erreur en cas de validation échouée -->
+  @if (loginFormGroup.controls['password'].errors && loginFormGroup.controls['password'].touched) {
+  <mat-error class="text-danger">
+    {{errorService.getErrorMessage('Mot de passe', loginFormGroup.controls['password'].errors)}}
+  </mat-error>
+  } 
+
+  <!-- Lien vers la page de récupération de mot de passe -->
+  <p> <a routerLink="/auth/forgotPassword">Mot de passe oublié ?</a></p>
+</app-auth-card>
+

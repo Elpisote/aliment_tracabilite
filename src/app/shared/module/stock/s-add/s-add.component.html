@@ -1,0 +1,96 @@
+<div class="container ">
+  <!-- Matériel Angular : Barre de progression horizontale -->
+  <mat-horizontal-stepper labelPosition="bottom" linear (selectionChange)="selectionChange($event)">
+
+    <!-- Première étape du steppper -->
+    <mat-step [completed]="step1Completed">
+      <ng-template matStepLabel>Sélection produit(s)</ng-template>
+
+      <!-- Filtres pour la sélection des produits -->
+      <div class="filter ">
+        <div class="d-flex justify-content-around mt-2">
+          <mat-form-field>
+            <input matInput [formControl]="idFilter" placeholder="Code">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [formControl]="nameFilter" placeholder="Nom du produit">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Catégorie</mat-label>
+            <!-- Sélecteur de catégorie avec possibilité de sélection multiple -->
+            <mat-select #categoriesSelect multiple [formControl]="categoryFilter" [(value)]="selectedCategories" style="display: none;">
+              <mat-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [formControl]="dlcFilter" placeholder="DLC (en jours)">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Liste des stocks affichée dans un tableau -->
+      <app-product-list-selection [dataSource]="dataSource"
+                                  [columnsToDisplay]="['id', 'name', 'category.name', 'description', 'durationConservation']"
+                                  [columnHeaders]="['', 'Code', 'Produit', 'Catégorie', 'Description', 'DLC (en jours)']">
+      </app-product-list-selection>
+
+      <!-- Composant de pagination -->
+      <mat-paginator [pageSize]="5" [hidePageSize]="true"></mat-paginator>     
+
+      <!-- Boutons de navigation -->
+      <div class="d-flex justify-content-around mt-3">
+        <button (click)="goToStockList()" mat-raised-button color="warn">RETOUR</button>
+        <button (click)="validation()" mat-raised-button color="accent">VALIDER</button>
+        <button matStepperNext mat-raised-button color="primary">SUIVANT</button>
+      </div>
+    </mat-step>
+
+    <!-- Deuxième étape du stepper -->
+    <mat-step>
+      <ng-template matStepLabel>Vérification</ng-template>
+
+      <!-- Liste des stocks sélectionnés -->
+      <app-product-list-selection class="mt-5"
+                                  [dataSource]="dataSourceSelected"
+                                  [columnsToDisplay]="['id', 'name', 'category.name', 'description', 'durationConservation']"
+                                  [columnHeaders]="['', 'Code', 'Produit', 'Catégorie', 'Description', 'DLC (en jours)']"
+                                  [showSelect]="false">
+      </app-product-list-selection>
+
+      <!-- Composant de pagination -->
+      <mat-paginator [pageSize]="5" [hidePageSize]="true"></mat-paginator>
+
+      <!-- Boutons de navigation -->
+      <div class="d-flex justify-content-around mt-5">
+        <button mat-raised-button matStepperPrevious color="warn">RETOUR</button>
+        <button matStepperNext mat-raised-button color="primary">SUIVANT</button>
+      </div>
+    </mat-step>
+
+    <!-- Troisième étape du stepper -->
+    <mat-step>
+      <ng-template matStepLabel>Impression</ng-template>
+
+      <!-- Boutons de navigation -->
+      <div class="d-flex justify-content-around mt-5">
+        <button mat-raised-button matStepperPrevious color="warn">RETOUR</button>
+        <button (click)="printing()" [useExistingCss]="true" printSectionId="print" ngxPrint class="mx-2" mat-flat-button color="primary" matStepperNext>IMPRESSION</button>
+      </div>
+
+      <!-- Zone d'impression -->
+      <div class="mt-5 " id="print">
+        <div class="page">
+          <!-- Contenu à imprimer, une étiquette pour chaque produit sélectionné -->
+          <div class="label-container" *ngFor="let product of dataSourceSelected.data">
+            <div class="label">
+              <div class="h3">#{{ product.id }} {{ product.name }}</div>
+              <div class="h6">DO : {{ getCurrentDate() }}</div>
+              <div class="h6">DLC : {{ getDLC(product.durationConservation) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+

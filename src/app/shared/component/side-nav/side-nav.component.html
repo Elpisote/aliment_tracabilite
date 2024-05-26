@@ -1,0 +1,15 @@
+<!-- Contenu de la barre de navigation latérale -->
+<div class="side-nav-content">
+  <!-- Liste de navigation principale -->
+  <ul class="nav-list" [ngClass]="{'nav-list-open': sideNavStatus}">
+    <!-- Boucle sur les éléments de la liste de menu -->
+    <li class="nav-list-item" *ngFor="let item of listeMenu">
+      <!-- Icône de l'élément de menu -->
+      <i class="{{item.icone}}"></i>
+      <!-- Texte de l'élément de menu avec lien vers une route Angular -->
+      <span>
+        <a [routerLink]="[item.lien]">{{item.nom}}</a>
+      </span>
+    </li>
+  </ul>
+</div>

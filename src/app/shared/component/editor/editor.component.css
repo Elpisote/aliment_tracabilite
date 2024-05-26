@@ -1,0 +1,12 @@
+/* Style les éléments de type input et select */
+input, select {
+  width: 260px; /* Largeur fixe de 260 pixels */
+  height: 40px; /* Hauteur fixe de 40 pixels */
+}
+
+/* Style les éléments de type small */
+small {
+  width: 250px; /* Largeur fixe de 250 pixels */
+  display: block; /* Affichage en tant que bloc pour occuper toute la largeur disponible */
+}
+

@@ -1,0 +1,82 @@
+
+/* Styles pour les éléments de classe 'container' dans le document */
+.container {
+  /* Largeur fixée pour les éléments de classe 'container' */
+  width: 1200px;
+}
+
+/*Fixer la hauteur de la navbar*/
+.container-nav {
+  height: 45px;
+}
+
+/** Dimension de l'input pour le filtre dans la navbar*/
+.custom-input {
+  margin-top: 90px; /* ou la valeur de votre choix */
+  width: 300px;
+}
+
+/**Dimension pour le titre de positionné dans la navbar*/
+.panel-heading {
+  margin-left: 16px;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+/**Custom le background color pour la navbar*/
+nav {
+  background-color: var(--accent); 
+}
+
+/**Custom  pour l'entête de du tableau*/
+.table-bordered th {
+  font-size: 18px;
+  font-weight: 500;
+  background-color: var(--primary-medium);
+}
+
+/**custom background color pour le fond du contenu du tableau*/
+.table-bordered td {
+  background-color: var(--primary-lighter);
+}
+
+/**Permet d'agrandir le mat-icon plus*/
+.icon-display {
+  margin-right: 66px;
+  transform: scale(1.7);
+}
+
+/* Styles pour l'arrière-plan du composant de chargement */
+.backdrop {
+  /* Positionne l'arrière-plan au-dessus de tous les autres éléments */
+  position: fixed;
+  top: 0px;
+  width: 100%; /* Prend toute la largeur de la fenêtre */
+  height: 100%; /* Prend toute la hauteur de la fenêtre */
+  background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond semi-transparente */
+  z-index: 98; /* Place l'arrière-plan en dessous du spinner */
+}
+
+mat-card {
+  display: block;
+  width: 450px;
+  height: 350px;
+  margin: auto;
+  margin-top: 6em;
+  align-items: center;
+  text-align: center;
+  background-color: var(--primary-lighter);
+}
+
+mat-card-content {
+  display: block;
+  padding: 16px;
+  margin: auto;
+  margin-bottom: 12px;
+  margin-top: 20px;
+  width: 450px;
+}
+
+mat-card-header {
+  display: block;
+}

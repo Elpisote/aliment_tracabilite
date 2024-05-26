@@ -1,0 +1,77 @@
+<!-- Formulaire Angular avec mat-form-field pour la saisie des informations utilisateur -->
+
+<form [formGroup]="formInfo">
+  <!-- Conteneur Bootstrap pour les champs de saisie -->
+
+    <!-- Première ligne avec les champs "Nom" et "Prénom" -->
+    <div class="row">
+      <!-- Colonne Bootstrap pour le champ "Nom" -->
+      <div class="col">
+        <!-- Utilisation du composant mat-form-field avec une apparence "outline" -->
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <!-- Champ de saisie pour le nom avec liaison au formulaire -->
+          <input formControlName="lastname" class="d-block" matInput placeholder="Entrer votre nom" />
+        </mat-form-field>
+        <!-- Affichage de l'erreur si le champ "Nom" a des erreurs et a été touché -->
+        @if (formInfo.controls['lastname'].errors && formInfo.controls['lastname'].touched) {
+        <mat-error>
+          <!-- Utilisation du service authService pour obtenir le message d'erreur associé -->
+          {{errorService.getErrorMessage('Nom', formInfo.controls['lastname'].errors)}}
+        </mat-error>
+        }
+      </div>
+      <!-- Colonne Bootstrap pour le champ "Prénom" -->
+      <div class="col">
+        <!-- Utilisation du composant mat-form-field avec une apparence "outline" -->
+        <mat-form-field appearance="outline">
+          <mat-label>Prénom</mat-label>
+          <!-- Champ de saisie pour le prénom avec liaison au formulaire -->
+          <input formControlName="firstname" class="d-block" matInput placeholder="Entrer votre prénom" />
+        </mat-form-field>
+        <!-- Affichage de l'erreur si le champ "Prénom" a des erreurs et a été touché -->
+        @if (formInfo.controls['firstname'].errors && formInfo.controls['firstname'].touched) {
+        <mat-error>
+          <!-- Utilisation du service authService pour obtenir le message d'erreur associé -->
+          {{errorService.getErrorMessage('Prénom', formInfo.controls['firstname'].errors)}}
+        </mat-error>
+        }
+      </div>
+    </div>
+    <!-- Deuxième ligne avec les champs "Pseudo" et "Email" -->
+    <div class="row mt-3">
+      <!-- Colonne Bootstrap pour le champ "Pseudo" -->
+      <div class="col">
+        <!-- Utilisation du composant mat-form-field avec une apparence "outline" -->
+        <mat-form-field appearance="outline">
+          <mat-label>Pseudo</mat-label>
+          <!-- Champ de saisie pour le pseudo avec liaison au formulaire -->
+          <input formControlName="username" class="d-block" matInput placeholder="Entrer votre pseudo" />
+        </mat-form-field>
+        <!-- Affichage de l'erreur si le champ "Pseudo" a des erreurs et a été touché -->
+        @if (formInfo.controls['username'].errors && formInfo.controls['username'].touched) {
+        <mat-error>
+          <!-- Utilisation du service authService pour obtenir le message d'erreur associé -->
+          {{errorService.getErrorMessage('Pseudo', formInfo.controls['username'].errors)}}
+        </mat-error>
+        }
+      </div>
+      <!-- Colonne Bootstrap pour le champ "Email" -->
+      <div class="col">
+        <!-- Utilisation du composant mat-form-field avec une apparence "outline" -->
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <!-- Champ de saisie pour l'email avec liaison au formulaire -->
+          <input formControlName="email" class="d-block" matInput placeholder="Entrer votre mail" />
+        </mat-form-field>
+        <!-- Affichage de l'erreur si le champ "Email" a des erreurs et a été touché -->
+        @if (formInfo.controls['email'].errors && formInfo.controls['email'].touched) {
+        <mat-error>
+          <!-- Utilisation du service authService pour obtenir le message d'erreur associé -->
+          {{errorService.getErrorMessage('Email', formInfo.controls['email'].errors)}}
+        </mat-error>
+        }
+      </div>
+    </div>
+
+</form>

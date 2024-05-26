@@ -1,0 +1,65 @@
+/**
+ * Style pour les champs de formulaire Angular Material.
+ * Centre le champ de formulaire horizontalement.
+ * et donne une largeur de 400px
+ */
+mat-form-field {
+  margin: auto;
+  width: 400px;
+}
+
+/**
+ * Style pour les messages d'erreur dans les composants Angular Material.
+ * Positionne le message en absolu, ajuste la taille de la police, le décale vers le haut,
+ * et le place à 100 pixels de la gauche.
+ */
+mat-error {
+  position: absolute;
+  left: 100px;
+  margin-top: -20px;
+  font-size: 10px;
+}
+
+/**
+ * Style spécifique pour les champs de mot de passe dans les formulaires.
+ * Ajoute une marge en haut de 35 pixels.
+ */
+.password-input {
+  margin-top: 22px;
+}
+
+/**
+ * Style pour les icônes dans les composants Angular Material.
+ * Ajuste la position en fonction du contexte.
+ */
+mat-icon {
+  margin-top: -10px;
+}
+
+/**
+ * Style pour les éléments de type input.
+ * Positionne l'élément en absolu avec un décalage de 8 pixels depuis le haut.
+ */
+input {
+  position: absolute;
+  top: 8px;
+}
+
+/**
+ * Style pour les paragraphes.
+ * Ajoute une marge en haut de 15 pixels.
+ */
+p {
+  margin-top: 12px;
+  margin-bottom: 16px;
+  font-size: 15px; 
+}
+
+/**
+ * Style pour le lien
+ * Couleur changée
+ */
+a {
+  color: var(--primary);
+  font-weight:500;
+}

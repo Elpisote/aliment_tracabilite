@@ -1,0 +1,28 @@
+<!-- Mise en page principale de l'application comprenant un en-tête (header) et une barre latérale (side nav).
+     La barre latérale peut être basculée grâce à l'événement 'sideNavToggled' émis par le composant d'en-tête.
+     La barre latérale contient une liste de menus dynamiques définie par le tableau 'listeMenu'.
+     La zone d'affichage principal s'ajuste dynamiquement en fonction de l'état de la barre latérale. -->
+
+<div class="container-fluid g-0">
+
+  <!-- Composant d'en-tête de l'application avec gestion de l'événement de basculement de la barre latérale -->
+  <app-header (sideNavToggled)="sideNavStatus = $event;"></app-header>
+
+  <!-- Zone principale de l'application -->
+  <main>
+
+    <!-- Composant de barre latérale avec gestion de l'état de la barre latérale, liste de menus,
+         et ajout de classes CSS dynamiquement en fonction de l'état de la barre latérale -->
+    <app-side-nav [sideNavStatus]="sideNavStatus" [listeMenu]="listeMenu"
+                  [ngClass]="{'app-side-nav-open': sideNavStatus}"></app-side-nav>
+
+    <!-- Zone d'affichage principal avec ajout dynamique de classes CSS en fonction de l'état de la barre latérale -->
+    <div class="display-area p-1" [ngClass]="{'display-area-shrink': sideNavStatus}">
+
+      <!-- Point de sortie du routeur pour le contenu principal de l'application -->
+      <router-outlet></router-outlet>
+
+    </div>
+
+  </main>
+</div>
