@@ -80,7 +80,7 @@ namespace aliment_backend.Service
         public async Task<ResponseToken> RegisterAsync(Info info, CreatePassword password)
         {
             // Vérifier si info ou password sont null
-            if (info == null || password == null || password.Password == null)
+            if (info == null || password.Password == null)
             {
                 return new ResponseToken()
                 {
@@ -126,10 +126,10 @@ namespace aliment_backend.Service
             // Si la création de l'utilisateur a échoué, retourner un message d'erreur
             if (!createUserResult.Succeeded)
             {
-                var errorString = "La création du nouvel utilisateur a écohoué parce que : ";
+                var errorString = "La création du nouvel utilisateur a échoué parce que : ";
                 foreach (var error in createUserResult.Errors)
                 {
-                    errorString += " # " + error.Description;
+                    errorString +=  error.Description;
                 }
                 return new ResponseToken()
                 {
