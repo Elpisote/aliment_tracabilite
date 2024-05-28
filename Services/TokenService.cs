@@ -85,11 +85,7 @@ namespace aliment_backend.Service
             // Gestionnaire de token JWT
             JwtSecurityTokenHandler tokenHandler = new();
             ClaimsPrincipal principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
-
-            // Vérifier si le token est un token JWT et utilise l'algorithme HmacSha256
-            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                throw new SecurityTokenException("Token invalide");
-
+                      
             return principal;
         }
     }
