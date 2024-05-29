@@ -56,7 +56,7 @@ namespace aliment_backend.Controllers
         [HttpGet("api/[controller]/ProductsByCategoryIds")]
         public IActionResult GetProductsByCategoryIds([FromQuery] List<int> categoryIds)
         {
-            if (categoryIds == null || categoryIds.Count == 0)
+            if (categoryIds.Count == 0)
             {
                 return BadRequest("La liste d'IDs de catégorie ne peut pas être vide.");
             }
@@ -81,6 +81,6 @@ namespace aliment_backend.Controllers
                 product.Category = _unitOfWork.GetRepository<Category>().GetById(product.CategoryId);       
             }
             return Ok(products);
-        }
+        }       
     }
 }
