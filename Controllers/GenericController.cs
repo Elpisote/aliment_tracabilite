@@ -171,19 +171,14 @@ namespace aliment_backend.Controllers
             if (typeof(T) == typeof(Stock))
             {
                 // Mettre à jour les informations d'un stock
-                if (dto is StockDTO stockDTO)
-                {
-                    Stock? stock = await _unitOfWork.GetRepository<Stock>().GetByIdAsync(id);
-                    if (stock == null)
-                        throw new Exception($"Stock n°{id} non trouvé.");
-
+                if (entity is Stock stock && dto is StockDTO stockDTO)
+                {                   
                     // Mapper les données du DTO dans l'objet Stock
                     stockDTO.ProductId = stock.ProductId;
                     _mapper.Map(stockDTO, stock);
-                    stock.UserModification = User.Identity?.Name;
+                    stock.UserModification = User.FindFirstValue("Username");
                     Stock? stockUpdate = _unitOfWork.GetRepository<Stock>().Update(stock); 
-                    stockUpdate.UserModification = User.FindFirstValue("Username");
-
+              
                     // Ajouter un historique pour la modification
                     Historical historical = new(DateTime.Now, "Modification", stock.Id);
                     await _unitOfWork.GetRepository<Historical>().AddAsynch(historical);

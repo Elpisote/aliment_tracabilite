@@ -30,83 +30,66 @@ namespace aliment_backend.Controllers
         [Authorize(Roles = "Admin, User")]
         [HttpGet("api/[controller]s")]
         public async Task<IActionResult> GetAllAsync()
-        {
-            // Vérifier si le gestionnaire d'utilisateurs est disponible
-            if (_userManager == null)
-            {
-                // Gérer le cas où _userManager est null
-                return BadRequest("UserManager n'est pas disponible.");
-            }
-            else
-            {
-                // Récupérer tous les utilisateurs
-                List<User> users = (List<User>)await _unitOfWork.Users.GetAllAsync();
+        {      
+            // Récupérer tous les utilisateurs
+            List<User> users = (List<User>)await _unitOfWork.Users.GetAllAsync();
 
-                // Créer une liste pour stocker les données des utilisateurs avec leurs rôles
-                List<object> usersWithRoles = new();
+            // Créer une liste pour stocker les données des utilisateurs avec leurs rôles
+            List<object> usersWithRoles = new();
 
-                 // Parcourir tous les utilisateurs pour obtenir leurs rôles
-                 foreach (User user in users)
-                 {
-                     // Récupérer les rôles de l'utilisateur
-                     IList<string> roles = await _userManager.GetRolesAsync(user);
+                // Parcourir tous les utilisateurs pour obtenir leurs rôles
+                foreach (User user in users)
+                {
+                    // Récupérer les rôles de l'utilisateur
+                    IList<string> roles = await _userManager.GetRolesAsync(user);
 
-                     // Ajouter les données de l'utilisateur avec ses rôles à la liste
-                     usersWithRoles.Add(new
-                     {
-                         user.Id,
-                         user.Firstname,
-                         user.Lastname,
-                         user.Email,
-                         user.UserName,
-                         Role = string.Join(", ", roles)
-                     });
-                 }
-                 // Retourner la liste des utilisateurs avec leurs rôles
-                return Ok(usersWithRoles);
-            }
+                    // Ajouter les données de l'utilisateur avec ses rôles à la liste
+                    usersWithRoles.Add(new
+                    {
+                        user.Id,
+                        user.Firstname,
+                        user.Lastname,
+                        user.Email,
+                        user.UserName,
+                        Role = string.Join(", ", roles)
+                    });
+                }
+                // Retourner la liste des utilisateurs avec leurs rôles
+            return Ok(usersWithRoles);            
         }
 
         // Méthode pour obtenir un utilisateur par son nom d'utilisateur
         [Authorize(Roles = "Admin, User")]
         [HttpGet("api/[controller]/{id}")]
         public async Task<IActionResult> GetByIdAsync(string id)
-        {
-            // Vérifier si le gestionnaire d'utilisateurs est disponible
-            if (_userManager == null)
+        {           
+            // Vérifier si l'ID ou le nom d'utilisateur est null
+            if (string.IsNullOrEmpty(id))
             {
-                // Gérer le cas où _userManager est null
-                return BadRequest("UserManager n'est pas disponible");
+                return BadRequest("L'ID est nul ou vide.");
             }
-            else
+
+            User user = await _userManager.FindByIdAsync(id);
+
+            // Vérifier si l'utilisateur est trouvé
+            if (user == null)
+                return NotFound($"L'utilisateur avec l'identifiant {id} non trouvé.");
+
+            // Récupérer les rôles de l'utilisateur
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+
+            // Retourner les données de l'utilisateur avec ses rôles
+            var userWithRoles = new
             {
-                // Vérifier si l'ID ou le nom d'utilisateur est null
-                if (string.IsNullOrEmpty(id))
-                {
-                    return BadRequest("L'ID ou le nom d'utilisateur est nul.");
-                }
-
-                User user = await _userManager.FindByIdAsync(id);
-
-                // Vérifier si l'utilisateur est trouvé
-                if (user == null)
-                    return NotFound($"L'utilisateur avec l'identifiant {id} n'a pas été trouvé.");
-
-                // Récupérer les rôles de l'utilisateur
-                IList<string> roles = await _userManager.GetRolesAsync(user);
-
-                // Retourner les données de l'utilisateur avec ses rôles
-                var userWithRoles = new
-                {
-                    user.Id,
-                    user.Firstname,
-                    user.Lastname,
-                    user.Email,
-                    user.UserName,
-                    Role = string.Join(", ", roles)
-                };
-                return Ok(userWithRoles);
-            }
+                user.Id,
+                user.Firstname,
+                user.Lastname,
+                user.Email,
+                user.UserName,
+                Role = string.Join(", ", roles)
+            };
+            return Ok(userWithRoles);
+            
         }
 
         // Méthode pour la suppression des utilisateurs
