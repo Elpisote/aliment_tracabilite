@@ -30,9 +30,9 @@ namespace aliment_backend.Controllers
         [Authorize(Roles = "Admin, User")]
         [HttpGet("api/[controller]s")]
         public async Task<IActionResult> GetAllAsync()
-        {      
+        {
             // Récupérer tous les utilisateurs
-            List<User> users = (List<User>)await _unitOfWork.Users.GetAllAsync();
+            List<User> users = (List<User>) await _unitOfWork.GetRepository<User>().GetAllAsync();            
 
             // Créer une liste pour stocker les données des utilisateurs avec leurs rôles
             List<object> usersWithRoles = new();

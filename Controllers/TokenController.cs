@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using aliment_backend;
-using aliment_backend.Entities;
+﻿using aliment_backend.Entities;
 using aliment_backend.Interfaces;
 using aliment_backend.Models.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace aliment_backend.Controllers
@@ -18,9 +17,8 @@ namespace aliment_backend.Controllers
         // Constructeur du contrôleur avec le contexte de la base de données et le service de jetons en tant que dépendances
         public TokenController(ApplicationDbContext userContext, ITokenService tokenService)
         {
-            // Vérifier que les dépendances ne sont pas nulles, sinon lancer une exception
-            _context = userContext ?? throw new ArgumentNullException(nameof(userContext));
-            _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
+            _context = userContext;
+            _tokenService = tokenService;
           
         }
 
@@ -30,17 +28,14 @@ namespace aliment_backend.Controllers
         public IActionResult Refresh(ApiToken apiToken)
         {
             // Vérifier si l'objet ApiToken est null
-            if (apiToken is null)
+            if (apiToken.AccessToken is null)
                 return BadRequest("Requête invalide");
 
             // Récupérer les jetons d'accès et de rafraîchissement du client
             string? accessToken = apiToken.AccessToken;
             string? refreshToken = apiToken.RefreshToken;
 
-            // Vérifier si le jeton d'accès est nul
-            if (accessToken == null)
-                return BadRequest("Access token est nul");
-
+         
             // Récupérer le principal des revendications du jeton d'accès expiré
             ClaimsPrincipal principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
             string? username = principal.Claims.FirstOrDefault(c => c.Type== "Username")?.Value;

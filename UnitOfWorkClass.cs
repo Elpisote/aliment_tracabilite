@@ -68,7 +68,7 @@ namespace aliment_backend
             else if (typeof(TEntity) == typeof(Historical))
                  return (IBaseRepository<TEntity>)Historical; 
             else if (typeof(TEntity) == typeof(User))
-                return (IBaseRepository<TEntity>)Users;
+                 return (IBaseRepository<TEntity>)Users;
             else
                  throw new ArgumentException($"Type d'entité non pris en charge: {typeof(TEntity).Name}");                   
         }
