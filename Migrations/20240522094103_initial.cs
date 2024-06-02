@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace aliment_backend.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

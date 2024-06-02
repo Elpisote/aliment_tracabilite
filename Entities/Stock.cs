@@ -58,50 +58,24 @@ namespace aliment_backend.Entities
         [NotMapped]
         public DateTime ExpirationDate { get; set; }
 
-        /// <summary>
-        /// Temps restant avant l'expiration du stock (non mappé).
-        /// </summary>
-        [NotMapped]
-        private TimeSpan? _remainingTime;
 
-        /// <summary>
-        /// Propriété représentant le temps restant sous forme de TimeSpan (non mappée).
-        /// </summary>
         [NotMapped]
-        public TimeSpan? RemainingTime
-        {
-            get => ExpirationDate.Subtract(DateTime.Now);
-            set => _remainingTime = value;
-        }
-
-        /// <summary>
-        /// Chaîne représentant le temps restant sous forme de texte (non mappée).
-        /// </summary>
-        [NotMapped]
-        private string? _countdown;
-
-        /// <summary>
-        /// Propriété représentant le temps restant sous forme de texte (non mappée).
-        /// </summary>
-        [NotMapped]
-        public string? Countdown
+        public string Countdown
         {
             get
             {
-                if (RemainingTime == null)
-                    return "N/A"; // Valeur par défaut si RemainingTime est null
-
-                int days = RemainingTime.Value.Days;
-                int hours = RemainingTime.Value.Hours;
-                int minutes = RemainingTime.Value.Minutes;
-
-                if (days <= 0 && hours <= 0 && minutes <= 0)
-                    _countdown = "Expiré";
+                TimeSpan remainingTime = ExpirationDate - DateTime.Now;
+                if (remainingTime <= TimeSpan.Zero)
+                {
+                    return "Expiré";
+                }
                 else
-                    _countdown = days + " j " + hours + " h";
-                return _countdown;
+                {
+                    int days = remainingTime.Days;
+                    int hours = remainingTime.Hours;
+                    return $"{days} j {hours} h";
+                }
             }
-            set => _countdown = value;
         }
     }
 }

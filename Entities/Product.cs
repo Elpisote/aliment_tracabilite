@@ -49,21 +49,11 @@ namespace aliment_backend.Entities
         /// Catégorie à laquelle appartient ce produit.
         /// </summary>
         public Category? Category { get; set; }
-
-        /// <summary>
-        /// Nombre de produits en stock pour ce produit.
-        /// </summary>
-        [NotMapped]
-        private int _nbProductStock;
-
+        
         /// <summary>
         /// Propriété calculée représentant le nombre de produits en stock pour ce produit.
         /// </summary>
         [NotMapped]
-        public int NbProductStock
-        {
-            get => Stocks.Count;
-            set => _nbProductStock = value;
-        }
+        public int NbProductStock =>  Stocks.Count;        
     }
 }

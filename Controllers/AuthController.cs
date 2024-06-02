@@ -98,7 +98,7 @@ namespace aliment_backend.Controllers
         public async Task<IActionResult> ResetPassword(ResetPassword resetPassword)
         {
             // Vérification si resetPassword est null ou si resetPassword.Token est null ou vide
-            if (string.IsNullOrEmpty(resetPassword.Email) || string.IsNullOrEmpty(resetPassword.Token))                 
+            if (string.IsNullOrEmpty(resetPassword.Email) || string.IsNullOrEmpty(resetPassword.Token))               
             {
                 return BadRequest("Requête invalide");
             } 
@@ -113,10 +113,9 @@ namespace aliment_backend.Controllers
                 else
                 {
                     // Réinitialisation du mot de passe de l'utilisateur à l'aide du token de réinitialisation
-                    string? token = resetPassword?.Token?.Replace(" ", "+");
+                    string? token = resetPassword?.Token?.Replace(" ", "+");  
                     await _userManager.ResetPasswordAsync(user, token, resetPassword?.Password?.Password);
-                                                          
-                    return Ok();
+                    return Ok();        
                 }                  
             }            
         }
