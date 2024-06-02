@@ -15,7 +15,7 @@ import { GLOBAL_STATE_NAME } from './core/_global-state/selector/global.selector
 import { defaultDataServiceConfig } from './core/_utils/data.service.config';
 import { entityConfig } from './entity-metadata';
 import { AuthService } from './features/auth/_service/auth.service';
-import { AuthEffects } from "./features/auth/_state/AuthEffects";
+import { AuthEffects } from "./features/auth/_state/auth-effect";
 import { AuthReducer } from './features/auth/_state/auth-reducer';
 import { AUTH_STATE_NAME } from './features/auth/_state/auth-selector';
 
