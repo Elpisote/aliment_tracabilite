@@ -58,7 +58,21 @@ namespace aliment_backend.Entities
         [NotMapped]
         public DateTime ExpirationDate { get; set; }
 
-
+        /// <summary>
+        /// Obtient une chaîne indiquant le temps restant avant la date d'expiration.
+        /// </summary>
+        /// <remarks>
+        /// Cette propriété calcule la différence entre la date actuelle et la <see cref="ExpirationDate"/>.
+        /// Si la date d'expiration est passée, elle retourne "Expiré". Sinon, elle retourne le nombre de jours et d'heures restants.
+        /// </remarks>
+        /// <value>
+        /// Une chaîne de caractères représentant le temps restant avant l'expiration.
+        /// </value>
+        /// <example>
+        /// Supposons que <see cref="ExpirationDate"/> soit fixé à une date dans le futur.
+        /// Si la date actuelle est le 1er janvier et que la date d'expiration est le 3 janvier,
+        /// la propriété <see cref="Countdown"/> pourrait retourner "2 j 0 h".
+        /// </example>
         [NotMapped]
         public string Countdown
         {
@@ -73,7 +87,7 @@ namespace aliment_backend.Entities
                 {
                     int days = remainingTime.Days;
                     int hours = remainingTime.Hours;
-                    return $"{days} j {hours} h";
+                    return $"{days}j {hours}h";
                 }
             }
         }
