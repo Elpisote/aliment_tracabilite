@@ -25,8 +25,7 @@
       }
       @else {
       <!-- Utilisation d'un modèle pour définir le champ d'entrée -->
-      <input [formControlName]="config.controlName" class="form-control" [type]="config.type" [readonly]="isReadonly(config.controlName)" min="1"
-             [value]="config.type === 'number' ? formatColumnValue(config.controlName) : formatColumnValue(config.controlName)"
+      <input [formControlName]="config.controlName" class="form-control" [readonly]="isReadonly(config.controlName)"  [type]="config.type" min="1"
              [ngStyle]="{ 'background-color': isReadonly(config.controlName) ? '#f0f0f0' : '' }" />
       }
 

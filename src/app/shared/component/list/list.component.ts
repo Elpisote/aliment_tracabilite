@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,12 +15,12 @@ import { AuthService } from '../../../features/auth/_service/auth.service';
 import { DialogService } from '../../_service/dialog.service';
 import { GenericService } from '../../_service/generic.service';
 import { NotificationService } from '../../_service/notification.service';
+import { ThemeService } from '../../_service/theme.service';
 import { entitiesType } from '../../enumeration/entities';
 import { namePageType } from '../../enumeration/namePage';
 import { EditorData } from '../../interface/IEditorData';
 import { StockService } from '../../module/stock/stock.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
-import { ThemeService } from '../../_service/theme.service';
 
 
 @Component({
@@ -44,15 +44,16 @@ import { ThemeService } from '../../_service/theme.service';
     DialogService,
     NotificationService
   ],
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.css'
+  templateUrl: './list.component.html',  
+  styleUrl: './list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 /**
 * Le composant `ListComponent` représente la mise en page d'un affichage tableau de l'application.
 * Il gère l'affichage d'une liste d'entités, la recherche, l'ajout, la modification et la suppression d'éléments.
 */
-export class ListComponent implements  AfterViewInit {
+export class ListComponent implements AfterViewInit {
   // Défini les propriétes input du composant
 
   /** Tableau de configurations de contrôle de formulaire. */
@@ -130,44 +131,46 @@ export class ListComponent implements  AfterViewInit {
   /**
   * Initialisation du composant.
   * Initialise le formulaire de recherche et récupère la liste des entités.
-  */
+  */ 
   ngOnInit(): void {
     // définition du service
     this.service = this.genericService.getService(this.entityName);
+    if (this.entityName === entitiesType.Stock) {
+      this.items$ = this.stockService.filteredEntities$
+    } else {
+      this.items$ = this.service.entities$
+    }
 
-    // Initialisation du flux d'éléments
-    this.items$ = this.service.entities$
-  
-    // Appliquer le filtre lors d'une recherche sur le tableau
-    this.applyFilter();    
+    // Appliquer le filtre au tableau
+    this.applyFilter();
   }
 
-  /**
-   * Méthode du cycle de vie Angular appelée après que la vue et les vues enfants
-   * sont initialisées. Permet d'exécuter du code après que la vue a été rendue.
-   * Dans cette méthode, nous utilisons une Promise pour définir la propriété
-   * `loading$` du service sur false, indiquant que le chargement est terminé.
-   */
+  ///**
+  // * Méthode du cycle de vie Angular appelée après que la vue et les vues enfants
+  // * sont initialisées. Permet d'exécuter du code après que la vue a été rendue.
+  // * Dans cette méthode, nous utilisons une Promise pour définir la propriété
+  // * `loading$` du service sur false, indiquant que le chargement est terminé.
+  // */
   ngAfterViewInit() {
     Promise.resolve().then(() => this.service.loading$ = false)
   }
 
-  //verifie si la valeur est un string
+  // verifie si la valeur est un string
   isString(value: any): value is string {
     return typeof value === 'string';
   }
 
-  //vérifie si la valeur est une date
+  // vérifie si la valeur est une date
   isDate(value: any): value is Date {
     return value instanceof Date || (typeof value === 'string' && !isNaN(Date.parse(value)));
   }
 
-  /**
-   * Obtient la valeur d'une propriété d'un objet en suivant le chemin de propriété spécifié.
-   * @param item L'objet source
-   * @param propertyPath Le chemin de la propriété sous forme de chaîne, avec des sous-propriétés séparées par des points
-   * @returns La valeur de la propriété ou undefined si la propriété n'est pas trouvée
-   */
+  ///**
+  // * Obtient la valeur d'une propriété d'un objet en suivant le chemin de propriété spécifié.
+  // * @param item L'objet source
+  // * @param propertyPath Le chemin de la propriété sous forme de chaîne, avec des sous-propriétés séparées par des points
+  // * @returns La valeur de la propriété ou undefined si la propriété n'est pas trouvée
+  // */
   getItemProperty(item: any, propertyPath: string): any {
     // Divisez la chaîne des propriétés en tableau pour accéder aux sous-propriétés
     const properties = propertyPath.split('.');
@@ -186,45 +189,45 @@ export class ListComponent implements  AfterViewInit {
     return value;
   }
 
-  /**
-   * Formate la valeur d'une colonne pour affichage.
-   * @param item L'élément de données à partir duquel extraire la valeur de la colonne
-   * @param column La colonne à formater, pouvant être une propriété, une fonction de formatage ou le nom d'une propriété
-   * @returns La valeur de la colonne formatée
-   */
-  formatColumnValue(item: any, column: any | Function): any {    
+  ///**
+  // * Formate la valeur d'une colonne pour affichage.
+  // * @param item L'élément de données à partir duquel extraire la valeur de la colonne
+  // * @param column La colonne à formater, pouvant être une propriété, une fonction de formatage ou le nom d'une propriété
+  // * @returns La valeur de la colonne formatée
+  // */
+  formatColumnValue(item: any, column: any | Function): any {
 
     if (this.isDate(item[column])) {
-      // La colonne est de type Date, appliquer le format de date à l'aide du pipe      
+      // La colonne est de type Date, appliquer le format de date à l'aide du pipe
       return this.datePipe.transform(item[column], 'dd/MM/yyyy || HH:mm:ss');
     }
     else if (this.isString(column)) {
-      // Utiliser getItemProperty pour les autres colonnes 
+      // Utiliser getItemProperty pour les autres colonnes
       return this.getItemProperty(item, column);
     } else if (typeof column === 'function') {
       // Si la colonne est une fonction, l'appeler avec l'élément actuel
       return column(item);
     } else {
-      // Retourner la valeur telle quelle, sans appliquer de format     
+      // Retourner la valeur telle quelle, sans appliquer de format
       return item[column];
     }
   }
 
-  /**
-   * Obtient l'identifiant d'un élément en utilisant une colonne spécifiée, ou retourne l'identifiant par défaut.
-   * @param item L'élément pour lequel récupérer l'identifiant
-   * @param column La colonne à utiliser pour l'identifiant, si elle est définie
-   * @returns L'identifiant de l'élément ou l'identifiant par défaut (item.id) si la colonne n'est pas définie ou est undefined.
-   */
+  ///**
+  // * Obtient l'identifiant d'un élément en utilisant une colonne spécifiée, ou retourne l'identifiant par défaut.
+  // * @param item L'élément pour lequel récupérer l'identifiant
+  // * @param column La colonne à utiliser pour l'identifiant, si elle est définie
+  // * @returns L'identifiant de l'élément ou l'identifiant par défaut (item.id) si la colonne n'est pas définie ou est undefined.
+  // */
   getItemId(item: any, column: string): any {
     return column && item[column] !== undefined ? item[column] : item.id;
   }
 
-  /**
-   * Détermine si un élément doit être désactivé en fonction de certaines conditions.
-   * @param item L'élément pour lequel évaluer la désactivation
-   * @returns True si l'élément doit être désactivé, sinon False
-   */
+  ///**
+  // * Détermine si un élément doit être désactivé en fonction de certaines conditions.
+  // * @param item L'élément pour lequel évaluer la désactivation
+  // * @returns True si l'élément doit être désactivé, sinon False
+  // */
   shouldDisableItem(item: any): boolean {
     // Les éléments de type User ne sont jamais désactivés
     if (this.entityName === entitiesType.User) {
@@ -235,23 +238,28 @@ export class ListComponent implements  AfterViewInit {
   }
 
   /**
-   * Applique un filtre de recherche aux éléments de la liste en fonction du terme de recherche spécifié.
-   * 
-   * Cette méthode filtre les éléments de la liste en fonction du terme de recherche entré par l'utilisateur.
-   * Si le terme de recherche est vide ou indéfini, tous les éléments de la liste sont affichés.
-   * Le filtre est insensible à la casse et recherche le terme de recherche dans toutes les propriétés
-   * des éléments de la liste.
-   */
+  * Applique un filtre de recherche aux éléments de la liste en fonction du terme de recherche spécifié.
+  *
+  * Cette méthode filtre les éléments de la liste en fonction du terme de recherche entré par l'utilisateur.
+  * Si le terme de recherche est vide ou indéfini, tous les éléments de la liste sont affichés.
+  * Le filtre est insensible à la casse et recherche le terme de recherche dans toutes les propriétés
+  * des éléments de la liste.
+  *
+  * Si l'entité est de type 'stock', les éléments filtrés sont récupérés à partir de `stockService.filteredEntities$`.
+  */
   applyFilter() {
     let searchTerm = this.searchTerm?.trim().toUpperCase();
 
+    // Sélectionner la source de données appropriée
+    let source$ = this.entityName === entitiesType.Stock ? this.stockService.filteredEntities$ : this.service.entities$;
+
     if (searchTerm === undefined || searchTerm === '') {
       // Si le terme de recherche est vide, réinitialiser le flux d'éléments
-      this.items$ = this.service.entities$;
+      this.items$ = source$;
       return;
     }
 
-    this.items$ = this.service.entities$.pipe(
+    this.items$ = source$.pipe(
       map((entities: any) => {
         // Filtrez les entités en fonction du terme de recherche
         return entities.filter((item: any) => {
@@ -269,12 +277,13 @@ export class ListComponent implements  AfterViewInit {
     );
   }
 
-  /**
-   * Redirige l'utilisateur vers la liste des stocks ou vers la page d'ajout,
-   * en fonction du rôle de l'utilisateur.
-   * Si l'utilisateur a le rôle 'user', il est redirigé vers la page d'ajout de stock pour les utilisateurs.
-   * Sinon, s'il a le rôle 'admin', il est redirigé vers la page d'ajout de stock pour les administrateurs.
-   */
+
+  ///**
+  // * Redirige l'utilisateur vers la liste des stocks ou vers la page d'ajout,
+  // * en fonction du rôle de l'utilisateur.
+  // * Si l'utilisateur a le rôle 'user', il est redirigé vers la page d'ajout de stock pour les utilisateurs.
+  // * Sinon, s'il a le rôle 'admin', il est redirigé vers la page d'ajout de stock pour les administrateurs.
+  // */
   goToAddStock(): void {
     // Obtient le rôle actuel de l'utilisateur
     const userRole = this.authService.getCurrentRole();
@@ -286,13 +295,13 @@ export class ListComponent implements  AfterViewInit {
     this.router.navigate([redirectRoute]);
   }
 
-  /**
-   * Ouvre une boîte de dialogue pour ajouter ou mettre à jour une entité.
-   * @param {boolean} isAdd - Un indicateur booléen indiquant si la boîte de dialogue est utilisée pour ajouter une nouvelle entité (true) ou mettre à jour une entité existante (false).
-   * @param {any} itemId - L'identifiant de l'entité à mettre à jour. Facultatif, utilisé uniquement lors de la mise à jour d'une entité existante.
-   */
+  ///**
+  // * Ouvre une boîte de dialogue pour ajouter ou mettre à jour une entité.
+  // * @param {boolean} isAdd - Un indicateur booléen indiquant si la boîte de dialogue est utilisée pour ajouter une nouvelle entité (true) ou mettre à jour une entité existante (false).
+  // * @param {any} itemId - L'identifiant de l'entité à mettre à jour. Facultatif, utilisé uniquement lors de la mise à jour d'une entité existante.
+  // */
   openDialog(isAdd: boolean, item?: any): void {
-   
+
     if (this.entityName === entitiesType.Stock && isAdd) {
       this.goToAddStock();
     } else {
@@ -305,21 +314,21 @@ export class ListComponent implements  AfterViewInit {
         userInfo: this.userInfo,
         selectNameDisable: this.selectNameDisable,
       };
-           
+
       // Si c'est une mise à jour (isAdd est faux) et itemId est défini, ajoutez itemId à l'objet data
-      if (!isAdd && item !== undefined) {    
+      if (!isAdd && item !== undefined) {
         data = { ...data, itemId: item }; // Ajoute l'identifiant de l'entité à mettre à jour à l'objet data
-      }  
+      }
       // Ouvre la boîte de dialogue pour ajouter ou mettre à jour une entité
-      this.dialogService.openFormDialog(data);  
+      this.dialogService.openFormDialog(data);
     }
   }
 
-  /**
-   * Supprime l'élément spécifié après confirmation de l'utilisateur.
-   * @param item L'élément à supprimer
-   */
-  onDeleteItem(item: any) {   
+  ///**
+  // * Supprime l'élément spécifié après confirmation de l'utilisateur.
+  // * @param item L'élément à supprimer
+  // */
+  onDeleteItem(item: any) {
 
     // Ouvre une boîte de dialogue de confirmation
     this.dialogService.openConfirmDialog('Etes-vous sûr de vouloir supprimer ?')
@@ -333,8 +342,8 @@ export class ListComponent implements  AfterViewInit {
             } else {
               this.notificationService.info(item.name + ' supprimé(e) avec succès');
             }
-          })          
+          })
         }
       })
-  }  
+  }
 }

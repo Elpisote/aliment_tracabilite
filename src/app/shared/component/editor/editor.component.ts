@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { EMPTY, catchError, finalize } from 'rxjs';
 import { FormControlConfig } from '../../../core/_utils/FormControlConfig';
 import { ErrorService } from '../../_service/errorForms.service';
 import { GenericService } from '../../_service/generic.service';
@@ -30,7 +31,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
     DatePipe,
     ErrorService,
     NotificationService,
-    GenericService
+    GenericService   
   ],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.css'
@@ -82,14 +83,13 @@ export class EditorComponent {
    */
   loading!: boolean;
 
-
   // injection des dépendances
   fb = inject(FormBuilder)
   errorService = inject(ErrorService)
   notificationService =inject(NotificationService)
   titlecasePipe = inject(TitleCasePipe)
   datePipe = inject(DatePipe)
-  genericService = inject(GenericService)  
+  genericService = inject(GenericService)
 
   constructor(@Inject(MAT_DIALOG_DATA) public formData: any) {
     // Initialisation des propriétés de l'éditeur avec les données fournies
@@ -143,84 +143,53 @@ export class EditorComponent {
   }
 
   /**
-   * Formate la valeur d'un contrôle de formulaire.
-   * @method
-   * @param {string} controlName - Le nom du contrôle de formulaire.
-   * @returns {any} - La valeur formatée.
-   */
-  formatColumnValue(controlName: string): any {
-    let value;
- 
-    if (controlName.includes('_')) {
-      value = this.getItemProperty(this.entity, controlName);
-    } else {
-      value = this.formGroup.get(controlName)?.value;
-    }
-
-    // Trouver la configuration de contrôle correspondant à controlName
-    const config = this.formControlConfigs.find(c => c.controlName === controlName);
- 
-    // Si la configuration n'est pas trouvée ou si le type est 'number', retourner la valeur telle quelle
-    if (!config || config.type === 'number') {
-      return value;
-    }
-
-    // Vérifier si la valeur est une date
-    if (this.isDate(value)) {
-      return this.datePipe.transform(value, 'dd/MM/yyyy || HH:mm:ss');
-    }
-    // Si ce n'est ni un nombre ni une date, retourner la valeur telle quelle
-    return value;
-  }
-
-  /**
    * Initialise le formulaire de l'éditeur.
    * Si l'opération n'est pas une création (isAdd est faux), récupère les données de l'entité par son identifiant.
    */ 
   private initializeForm() {
-    // Configuration du formulaire
     const formGroupConfig: { [key: string]: any } = {};
 
-    // Parcours des configurations de contrôle
     this.formControlConfigs.forEach(config => {
       formGroupConfig[config.controlName] = [null, config.validators];
     });
 
     // Si ce n'est pas une opération d'ajout, récupération des données de l'entité par son identifiant
     if (!this.isAdd) {
-      // Création du groupe de formulaires avec la configuration
-      this.formGroup = this.fb.group(formGroupConfig);
+      this.loading = true; // chargement en cours
 
-      // chargement en cours
-      this.loading = true 
-      // Appel du service pour obtenir les données de l'entité
-        this.service.getByKey(this.formData.itemId.id).subscribe({
-          next: (data: any) => { 
-            //chargement fini
-            this.loading = false
-            // Affectation des données de l'entité aux champs du formulaire
-            this.entity = data;
-
-            this.formControlConfigs.forEach(config => {
-              let controlValue;
-              if (config.controlName.includes('_')) {
-                controlValue = this.getItemProperty(this.entity, config.controlName);
-              } else {
-                controlValue = this.entity[config.controlName];
-              }
-              formGroupConfig[config.controlName] = [controlValue, config.validators];
-            });
-            this.formGroup = this.fb.group(formGroupConfig);
-        },
-        error: (error: any) => {
+      this.service.getByKey(this.formData.itemId.id).pipe(
+        catchError((error: any) => {
           console.error('Error fetching entity', error);
-        }
+          return EMPTY; // ou tout autre observable ou valeur par défaut que vous souhaitez retourner en cas d'erreur
+        }),
+        finalize(() => {
+          this.loading = false; // chargement terminé
+        })
+      ).subscribe((data: any) => {
+        this.entity = data;
+
+        this.formControlConfigs.forEach(config => {
+          let controlValue;
+          if (config.controlName.includes('_')) {
+            controlValue = this.getItemProperty(this.entity, config.controlName);
+          } else {
+            controlValue = this.entity[config.controlName];
+          }
+
+          if (this.isDate(controlValue)) {
+            controlValue = this.datePipe.transform(controlValue, 'dd/MM/yyyy || HH:mm:ss');
+          }
+
+          formGroupConfig[config.controlName] = [controlValue, config.validators];
+        });
+
+        this.formGroup = this.fb.group(formGroupConfig);
       });
     } else {
       // Si c'est une opération d'ajout, création du groupe de formulaires avec la configuration
       this.formGroup = this.fb.group(formGroupConfig);
     }
-  }    
+  }
 
   /**
    * Obtient le message d'erreur pour un champ de formulaire donné.
@@ -293,12 +262,16 @@ export class EditorComponent {
    */
   updateItem() {
     let item = this.capitalizeFirstLetter({ ...this.entity, ...this.formGroup.value }, this.formGroup, this.entityName);
-       
+
     this.service.update(item).subscribe(
-      () => {        
+      () => {  
         if (this.userInfo) {
           this.notificationService.success("L'utilisateur " + item.userName + ' mis à jour avec succès');
-        } else {
+        } else if (this.entityName = entitiesType.Stock) {
+          this.notificationService.success("Produit " + item.product_name + ' mis à jour avec succès');
+         // window.location.reload();
+        }
+        else {
           this.notificationService.success(item.name + ' mis(e) à jour avec succès');
         }
       },
