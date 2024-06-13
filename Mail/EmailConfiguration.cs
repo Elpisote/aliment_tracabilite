@@ -8,7 +8,12 @@
         /// <summary>
         /// Obtient ou définit l'adresse e-mail de l'expéditeur.
         /// </summary>
-        public string? From { get; set; }
+        public string? FromEmail { get; set; }
+
+        /// <summary>
+        /// Obtient ou définit le nom de l'expéditeur.
+        /// </summary>
+        public string? FromName { get; set; }
 
         /// <summary>
         /// Obtient ou définit le serveur SMTP à utiliser pour l'envoi des e-mails.

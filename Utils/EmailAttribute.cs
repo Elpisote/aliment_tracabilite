@@ -15,19 +15,21 @@ namespace aliment_backend.Utils
         /// <returns>True si la valeur est une adresse e-mail valide, sinon False.</returns>
         public override bool IsValid(object? value)
         {
-            // Vérifier si la valeur est null ou vide
-            if (string.IsNullOrWhiteSpace(value?.ToString()))
-                return false; // La valeur est nulle ou vide, donc invalide
+            // Vérifier si la valeur est null
+            if (value == null)
+                return false; 
 
             string? email = value.ToString();
+
+            // Vérifier si la valeur convertie en string est vide ou composée uniquement d'espaces
+            if (string.IsNullOrWhiteSpace(email))
+                return false; // La valeur est nulle, vide ou composée uniquement d'espaces, donc invalide
 
             // Modèle d'expression régulière pour valider un email
             string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
 
-            if (email != null)
-                // Vérification de correspondance avec le modèle d'expression régulière
-                return Regex.IsMatch(email, pattern);
-            return false;
+            // Vérification de correspondance avec le modèle d'expression régulière
+            return Regex.IsMatch(email, pattern);
         }
     }
 }

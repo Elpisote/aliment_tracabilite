@@ -73,20 +73,7 @@ namespace aliment_backend
                  throw new ArgumentException($"Type d'entité non pris en charge: {typeof(TEntity).Name}");                   
         }
 
-        /// <summary>
-        /// Enregistre les modifications apportées dans le contexte dans la base de données.
-        /// </summary>
-        /// <returns>Le nombre d'entités affectées.</returns>
-        public int Complete()
-        {
-            return _context.SaveChanges();
-        }
-
-        /// <summary>
-        /// Libère les ressources du contexte.
-        /// </summary>
-        public void Dispose() => _context.Dispose();
-
+       
         /// <summary>
         /// Enregistre de manière asynchrone les modifications apportées dans le contexte dans la base de données.
         /// </summary>

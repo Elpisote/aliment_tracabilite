@@ -2,6 +2,7 @@
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
+using System.Net.Mail;
 
 namespace aliment_backend.Mail
 {
@@ -11,14 +12,17 @@ namespace aliment_backend.Mail
     public class EmailSender : IEmailSender
     {
         private readonly EmailConfiguration _emailConfig;
+        private readonly ISmtpClientWrapper _smtpClient;
+
 
         /// <summary>
         /// Initialise une nouvelle instance de la classe <see cref="EmailSender"/> avec la configuration d'e-mail spécifiée.
         /// </summary>
         /// <param name="emailConfig">La configuration d'e-mail à utiliser pour l'envoi des e-mails.</param>
-        public EmailSender(EmailConfiguration emailConfig)
+        public EmailSender(EmailConfiguration emailConfig, ISmtpClientWrapper smtpClient = null!)
         {
             _emailConfig = emailConfig;
+            _smtpClient = smtpClient;
         }
 
         /// <summary>
@@ -28,7 +32,7 @@ namespace aliment_backend.Mail
         /// <returns>Une tâche représentant l'opération asynchrone d'envoi de l'e-mail.</returns>
         public async Task SendEmailAsync(Message message)
         {
-            var mailMessage = CreateEmailMessage(message);
+            MimeMessage mailMessage = CreateEmailMessage(message);
 
             await SendAsync(mailMessage);
         }
@@ -40,8 +44,8 @@ namespace aliment_backend.Mail
         /// <returns>Un objet <see cref="MimeMessage"/> représentant le message e-mail créé.</returns>
         private MimeMessage CreateEmailMessage(Message message)
         {
-            var emailMessage = new MimeMessage(); 
-            emailMessage.From.Add(new MailboxAddress("Resto_Ratatouille",_emailConfig.From));
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress(_emailConfig.FromName, _emailConfig.FromEmail));
             emailMessage.To.Add(message.To);
             emailMessage.Subject = message.Subject;
             // Vérifier si le contenu du message est null
@@ -71,23 +75,23 @@ namespace aliment_backend.Mail
         /// <returns>Une tâche représentant l'opération asynchrone d'envoi de l'e-mail.</returns>
         private async Task SendAsync(MimeMessage mailMessage)
         {
-            using var client = new SmtpClient();
-            client.ServerCertificateValidationCallback = (s, c, h, e) => true; // Ignorer la validation du certificat 
+            if (string.IsNullOrEmpty(_emailConfig.SmtpServer))
+                throw new InvalidOperationException("Le serveur SMTP n'est pas configuré.");
+            if (string.IsNullOrEmpty(_emailConfig.Username))
+                throw new InvalidOperationException("Le nom d'utilisateur SMTP n'est pas configuré.");
+            if (string.IsNullOrEmpty(_emailConfig.Password))
+                throw new InvalidOperationException("Le mot de passe SMTP n'est pas configuré.");
+
             try
             {
-                await client.ConnectAsync(_emailConfig.SmtpServer, _emailConfig.Port, SecureSocketOptions.StartTls);
-                await client.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password);
-                await client.SendAsync(mailMessage);
-            }
-            catch
-            {
-                Console.WriteLine("Erreur lors de l'envoi de l'e-mail");
-            }
+                await _smtpClient.ConnectAsync(_emailConfig.SmtpServer, _emailConfig.Port, SecureSocketOptions.StartTls, CancellationToken.None);
+                await _smtpClient.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password, CancellationToken.None);
+                await _smtpClient.SendAsync(mailMessage);
+            }         
             finally
             {
-                await client.DisconnectAsync(true);
-                client.Dispose();
+                await _smtpClient.DisconnectAsync(true, CancellationToken.None);          
             }
-        }       
+        }
     }
 }

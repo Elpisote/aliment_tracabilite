@@ -6,7 +6,7 @@ namespace aliment_backend.Interfaces
     /// <summary>
     /// Interface représentant un modèle de unit of work (unité de travail) pour la gestion des opérations de base de données.
     /// </summary>
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
         /// <summary>
         /// Obtient le référentiel pour les entités de type Category.
@@ -38,13 +38,7 @@ namespace aliment_backend.Interfaces
         /// </summary>
         /// <typeparam name="TEntity">Le type d'entité pour lequel récupérer le référentiel.</typeparam>
         /// <returns>Le référentiel pour les entités du type spécifié.</returns>
-        IBaseRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
-
-        /// <summary>
-        /// Enregistre les modifications dans la base de données et renvoie le nombre d'éléments affectés.
-        /// </summary>
-        /// <returns>Le nombre d'éléments affectés.</returns>
-        int Complete();
+        IBaseRepository<TEntity> GetRepository<TEntity>() where TEntity : class;             
 
         /// <summary>
         /// Enregistre les modifications dans la base de données de manière asynchrone et renvoie le nombre d'éléments affectés.

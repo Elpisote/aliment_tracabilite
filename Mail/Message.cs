@@ -35,5 +35,4 @@ namespace aliment_backend.Mail
             Content = content;
         }
     }
-
 }

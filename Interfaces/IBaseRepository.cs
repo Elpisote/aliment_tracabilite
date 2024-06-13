@@ -27,7 +27,7 @@ namespace aliment_backend.Interfaces
         /// <param name="criteria">Les critères de recherche sous forme d'expression lambda.</param>
         /// <param name="includes">Un tableau de noms de propriétés à inclure.</param>
         /// <returns>Une collection des entités de type T satisfaisant les critères spécifiés.</returns>
-        public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, string[]? includes = null);
+        public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria);
 
         /// <summary>
         /// Récupère de manière asynchrone l'entité de type T avec l'identifiant spécifié.

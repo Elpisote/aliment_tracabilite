@@ -68,16 +68,10 @@ namespace aliment_backend.Repositories
         /// Récupère toutes les entités de type T satisfaisant le critère spécifié, en incluant éventuellement les entités associées spécifiées.
         /// </summary>
         /// <param name="criteria">Le critère de filtrage des entités.</param>
-        /// <param name="includes">Un tableau de chaînes spécifiant les entités associées à inclure dans la requête.</param>
         /// <returns>Une collection contenant toutes les entités de type T satisfaisant le critère spécifié.</returns>
-        public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, string[]? includes = null)
+        public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria)
         {
             IQueryable<T> query = _context.Set<T>();
-
-            if (includes != null)
-                foreach (var include in includes)
-                    query = query.Include(include);
-
             return query.Where(criteria).ToList();
         }
 
