@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aliment_backend", "aliment_backend.csproj", "{18BC65BA-E9E5-4C35-AAC1-A0195F48F65B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aliment_backend_unit_test", "..\aliment_backend_unit_test\aliment_backend_unit_test.csproj", "{9A92796D-2BA8-4A1A-BCC9-54D313D0BFD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aliment_backend_unit_test", "..\aliment_backend_unit_test\aliment_backend_unit_test.csproj", "{9A92796D-2BA8-4A1A-BCC9-54D313D0BFD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
