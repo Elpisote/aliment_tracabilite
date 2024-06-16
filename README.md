@@ -39,8 +39,18 @@ Le projet est livré avec un utilisateur déjà enregistré pour faciliter le d�
 - **Mot de passe**: Admin123!
 - **Pseudo**: Administrator
 - **Rôle**: Admin
-
 Pour accéder aux fonctionnalités administratives et explorer pleinement le projet, vous pouvez utiliser cet utilisateur par défaut.
 
+## Structures des branches
+Pour une meilleure organisation et une collaboration efficace, le projet est divisé en plusieurs branches spécifiques :
 
+### Branches principales
+- **backend**: contient tout le code relatif à l'API et à la logique serveur développés en dotnet 6.
+- **frontend**: contient le code de l'interface utilisateur développé en Angular 17.
+- **test**: utilisée pour l'écriture et l'exécution des tests (unitaires, intégration, etc.) du backend
+
+### Démarrer avec les branches
+1. Backend
+- **** Naviguez vers la branche backend : git checkout backend
+- **** Suivez les instructions spécifiques dans le README de cette branche pour configurer et démarrer le serveur.
 
