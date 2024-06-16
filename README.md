@@ -19,4 +19,4 @@ git clone -b unit_test https://github.com/Elpisote/aliment_tracabilite.git unit_
 
 ## Dépendances
 Assurez-vous que les éléments suivants sont installés sur votre machine :
-- .NET 6 SDK
+- .NET 6 SDK  
