@@ -50,7 +50,15 @@ Pour une meilleure organisation et une collaboration efficace, le projet est div
 - **test**: utilisée pour l'écriture et l'exécution des tests (unitaires, intégration, etc.) du backend
 
 ### Démarrer avec les branches
-1. Backend
-- **** Naviguez vers la branche backend : git checkout backend
-- **** Suivez les instructions spécifiques dans le README de cette branche pour configurer et démarrer le serveur.
+1. **Backend**
+-  Naviguez vers la branche backend : git checkout backend
+- Suivez les instructions spécifiques dans le README de cette branche pour configurer et démarrer le serveur.
+
+2. **Frontend**
+-  Naviguez vers la branche frontnd : git checkout frontend
+- Suivez les instructions spécifiques dans le README de cette branche pour configurer et démarrer l'application cliente.
+
+3. **Test**
+- Naviguez vers la branche test : git checkout test
+- Suivez les instructions spécifiques dans le README de cette branche pour exécuter les tests et vérifier la fonctionnalité du projet.
 
