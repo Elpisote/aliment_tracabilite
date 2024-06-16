@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 #nullable disable
 
 namespace aliment_backend.Migrations
-{
-    [ExcludeFromCodeCoverage]
+{   
     public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

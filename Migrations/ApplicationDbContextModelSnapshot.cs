@@ -5,8 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 
 namespace aliment_backend.Migrations
-{
-    [ExcludeFromCodeCoverage]
+{  
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
