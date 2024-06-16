@@ -47,7 +47,8 @@ Pour une meilleure organisation et une collaboration efficace, le projet est div
 ### Branches principales
 - **backend** : contient tout le code relatif à l'API et à la logique serveur développés en dotnet 6.
 - **frontend** : contient le code de l'interface utilisateur développé en Angular 17.
-- **test** : utilisée pour l'écriture et l'exécution des tests (unitaires, intégration, etc.) du backend
+- **unit_test** : utilisée pour l'écriture et l'exécution des tests unitaires du backend
+- **integration_test** : utilisée pour l'écriture et l'exécution des tests d'intégration du backend
 
 ### Démarrer avec les branches
 1. **Backend**
@@ -58,13 +59,11 @@ Pour une meilleure organisation et une collaboration efficace, le projet est div
 -  Naviguez vers la branche frontnd : `git checkout frontend`
 - Suivez les instructions spécifiques dans le README de cette branche pour configurer et démarrer l'application cliente.
 
-3. **Test**
-- Naviguez vers la branche test : `git checkout test`
+3. **Unit_test**
+- Naviguez vers la branche test : `git checkout unit_test`
 - Suivez les instructions spécifiques dans le README de cette branche pour exécuter les tests et vérifier la fonctionnalité du projet.
 
-## Structure du Répertoire Test
-Pour une organisation claire, la branche test est divisée en deux dossiers principaux :
+4. **Integration_test**
+- Naviguez vers la branche test : `git checkout integration_test`
+- Suivez les instructions spécifiques dans le README de cette branche pour exécuter les tests et vérifier la fonctionnalité du projet.
 
-### Dossier de Test
-- unit : contient les tests unitaires pour le backend
-- integration : contient les tests d'intégration pour le backend 
