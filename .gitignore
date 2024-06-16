@@ -1,0 +1,4 @@
+# Ignore other files and directories 
+TestResults/
+coveragereport/
+bin/
