@@ -137,8 +137,8 @@ namespace aliment_backend.Controllers
                 // Génération d'un token de réinitialisation de mot de passe
                 string token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-                Message message = new(new MailboxAddress("Email", user.Email), "Mot de passe oublié", EmailBody.EmailStringBody(user.Email, token));
-                await _emailSender.SendEmailAsync(message);
+                Message message = new(new MailboxAddress(user.Lastname, user.Email), "Mot de passe oublié", EmailBody.EmailStringBody(user.Email, token));
+                _emailSender.SendEmailAsync(message);
                 return Ok();
             }            
         }

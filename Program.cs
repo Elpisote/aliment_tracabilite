@@ -63,7 +63,7 @@ namespace Aliment
                                 Id = "Bearer"
                         }
                     },
-                    new string[] {}
+                    Array.Empty<string>()
                 }
                 });
             });
@@ -155,8 +155,8 @@ namespace Aliment
             // Configuration de l'envoi d'e-mail
             EmailConfiguration emailConfig = new()
             {
-                FromEmail = Environment.GetEnvironmentVariable("EMAIL_FROM_EMAIL") ?? throw new InvalidOperationException("EMAIL_FROM_EMAIL not set"),
-                FromName = Environment.GetEnvironmentVariable("EMAIL_FROM_NAME") ?? throw new InvalidOperationException("EMAIL_FROM_NAME not set"),
+               FromEmail = Environment.GetEnvironmentVariable("EMAIL_FROM_EMAIL") ?? throw new InvalidOperationException("EMAIL_FROM_EMAIL not set"),
+               FromName = Environment.GetEnvironmentVariable("EMAIL_FROM_NAME") ?? throw new InvalidOperationException("EMAIL_FROM_NAME"),
                 SmtpServer = Environment.GetEnvironmentVariable("EMAIL_SMTP_SERVER") ?? throw new InvalidOperationException("EMAIL_SMTP_SERVER not set"),
                 Port = int.Parse(Environment.GetEnvironmentVariable("EMAIL_PORT") ?? throw new InvalidOperationException("EMAIL_PORT not set")),
                 Username = Environment.GetEnvironmentVariable("EMAIL_USERNAME") ?? throw new InvalidOperationException("EMAIL_USERNAME not set"),

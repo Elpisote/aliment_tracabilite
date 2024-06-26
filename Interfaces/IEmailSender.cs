@@ -12,6 +12,6 @@ namespace aliment_backend.Interfaces
         /// </summary>
         /// <param name="message">L'objet Message contenant les détails de l'e-mail à envoyer.</param>
         /// <returns>Une tâche représentant l'opération asynchrone d'envoi d'e-mail.</returns>
-        Task SendEmailAsync(Message message);
+        public void SendEmailAsync(Message message);
     }
 }
