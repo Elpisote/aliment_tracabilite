@@ -321,7 +321,7 @@ namespace unit_test.Controller_test
                 User? user = await _contextMock.Context.Users.FirstOrDefaultAsync(u => u.Email == email);
                 if (user != null)
                     _userManagerMock.Setup(m => m.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync(user);
-                _emailSenderMock.Setup(m => m.SendEmailAsync(It.IsAny<Message>())).Returns(Task.CompletedTask);
+                _emailSenderMock.Setup(m => m.SendEmailAsync(It.IsAny<Message>()));
                 ForgotPassword forgotPassword = new() { Email = "john@example.com" };
 
                 // Act
