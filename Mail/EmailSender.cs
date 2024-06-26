@@ -1,4 +1,5 @@
 ﻿using aliment_backend.Interfaces;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 
@@ -10,6 +11,7 @@ namespace aliment_backend.Mail
     public class EmailSender : IEmailSender
     {
         private readonly EmailConfiguration _emailConfig;
+        public Func<SmtpClient> SmtpClientFactory { get; set; } = () => new SmtpClient();
 
         /// <summary>
         /// Initialise une nouvelle instance de la classe <see cref="EmailSender"/> avec la configuration d'e-mail spécifiée.
@@ -24,13 +26,13 @@ namespace aliment_backend.Mail
         /// Envoie de manière asynchrone un e-mail avec les détails spécifiés.
         /// </summary>
         /// <param name="message">Les détails du message à envoyer.</param>
-        /// <returns>Une tâche représentant l'opération asynchrone d'envoi de l'e-mail.</returns>
         public void SendEmailAsync(Message message)
         {
             MimeMessage emailMessage = new();
             emailMessage.From.Add(new MailboxAddress(_emailConfig.FromName, _emailConfig.FromEmail));
             emailMessage.To.Add(message.To);
             emailMessage.Subject = message.Subject;
+
             // Vérifier si le contenu du message est null
             if (message.Content != null)
             {
@@ -48,7 +50,7 @@ namespace aliment_backend.Mail
                     Text = string.Empty
                 };
             }
-            MailKit.Net.Smtp.SmtpClient smtp = new();
+            using var smtp = SmtpClientFactory();
             smtp.Connect(_emailConfig.SmtpServer, _emailConfig.Port, SecureSocketOptions.StartTls, default);
             smtp.Authenticate(_emailConfig.Username, _emailConfig.Password);
             smtp.Send(emailMessage);
