@@ -168,3 +168,12 @@ C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\obj\Debug\net6.0\refint\
 C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\obj\Debug\net6.0\unit_test.pdb
 C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\obj\Debug\net6.0\unit_test.genruntimeconfig.cache
 C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\obj\Debug\net6.0\ref\unit_test.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\Telerik.JustMock.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Eva\source\repos\aliment_tracabilite\unit_test\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
