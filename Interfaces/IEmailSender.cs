@@ -8,9 +8,10 @@ namespace aliment_backend.Interfaces
     public interface IEmailSender
     {
         /// <summary>
-        /// Envoie un e-mail en utilisant les informations spécifiées dans l'objet <paramref name="message"/>.
+        /// Envoie de manière asynchrone un e-mail en utilisant les informations spécifiées dans l'objet <paramref name="message"/>.
         /// </summary>
         /// <param name="message">L'objet <see cref="Message"/> contenant les détails de l'e-mail à envoyer.</param>
-        public void SendEmailAsync(Message message);
+        /// <returns>Une tâche représentant l'opération asynchrone d'envoi de l'e-mail.</returns>
+        Task SendEmailAsync(Message message);
     }
 }

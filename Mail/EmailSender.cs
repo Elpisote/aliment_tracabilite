@@ -11,7 +11,7 @@ namespace aliment_backend.Mail
     public class EmailSender : IEmailSender
     {
         private readonly EmailConfiguration _emailConfig;
-        public Func<SmtpClient> SmtpClientFactory { get; set; } = () => new SmtpClient();
+        private readonly SmtpClient _smtpClient;
 
         /// <summary>
         /// Initialise une nouvelle instance de la classe <see cref="EmailSender"/> avec la configuration d'e-mail spécifiée.
@@ -20,13 +20,15 @@ namespace aliment_backend.Mail
         public EmailSender(EmailConfiguration emailConfig)
         {
             _emailConfig = emailConfig;
+            _smtpClient = new SmtpClient();
         }
 
         /// <summary>
         /// Envoie de manière asynchrone un e-mail avec les détails spécifiés.
         /// </summary>
         /// <param name="message">Les détails du message à envoyer.</param>
-        public void SendEmailAsync(Message message)
+        /// <returns>Une tâche représentant l'opération asynchrone d'envoi de l'e-mail.</returns>
+        public async Task SendEmailAsync(Message message)
         {
             MimeMessage emailMessage = new();
             emailMessage.From.Add(new MailboxAddress(_emailConfig.FromName, _emailConfig.FromEmail));
@@ -50,11 +52,20 @@ namespace aliment_backend.Mail
                     Text = string.Empty
                 };
             }
-            using var smtp = SmtpClientFactory();
-            smtp.Connect(_emailConfig.SmtpServer, _emailConfig.Port, SecureSocketOptions.StartTls, default);
-            smtp.Authenticate(_emailConfig.Username, _emailConfig.Password);
-            smtp.Send(emailMessage);
-            smtp.Disconnect(true);
-        }         
+            await SendEmailInternalAsync(emailMessage);
+        }
+
+        /// <summary>
+        /// Envoie de manière asynchrone l'e-mail spécifié en utilisant le client SMTP configuré.
+        /// </summary>
+        /// <param name="emailMessage">Le message MIME à envoyer.</param>
+        /// <returns>Une tâche représentant l'opération asynchrone d'envoi de l'e-mail.</returns>
+        protected virtual async Task SendEmailInternalAsync(MimeMessage emailMessage)
+        {
+            await _smtpClient.ConnectAsync(_emailConfig.SmtpServer, _emailConfig.Port, SecureSocketOptions.StartTls, CancellationToken.None);
+            await _smtpClient.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password, CancellationToken.None);
+            await _smtpClient.SendAsync(emailMessage, CancellationToken.None);
+            await _smtpClient.DisconnectAsync(true);
+        }
     }
 }
